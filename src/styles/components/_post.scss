@@ -1,0 +1,55 @@
+.activewin{
+	background: none;
+}
+.post-top{
+	border:none;
+	border-bottom: 1px $gray2 solid;
+	font-weight: 600;
+	height: 4rem;
+	padding: 0 1rem;
+}
+.post-top__username{
+	margin-top: 1.2rem;
+}
+.post-container{
+	display: flex;
+	background: white;
+	border: $gray2 1px solid;
+	border-radius: 3px;
+	height: 100%;
+	flex-direction: column;
+	margin-bottom: 4rem;
+	overflow-wrap: break-word;
+	text-align: justify;
+	width: 100.4%;
+}
+.post-bottom{
+	border: none;
+	padding: 1rem;
+}
+.post-img{
+	width: 100%;
+}
+.text-post{
+	padding: 0 1.5rem;
+}
+.post-footer a{
+	cursor: pointer;
+}
+a{
+	color: $gray5;
+}
+a:visited{
+	color: #06205c;
+}
+iframe{
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+@media(max-width: $mobile-breakpoint){
+	.post-container{
+		margin: 0;
+		border: none;
+	}
+}

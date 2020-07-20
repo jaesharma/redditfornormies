@@ -1,0 +1,88 @@
+.userinfo-container{
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	left: 65%;
+	margin-top: 7rem;
+	position: fixed;
+	width: 30%;
+}
+.userinfo{
+	float: left;
+	margin-bottom: 1rem;
+}
+.userinfo-text{
+	float: left;
+	margin-left: 1rem;
+	margin-top: .4rem;
+}
+
+.user-username{
+	margin: 0;
+	font-size: .9rem;
+	font-weight: 600;
+}
+.user-name{
+	color: #888;
+	font-size: .8rem;
+	margin: 0;
+	margin-top: .2rem;
+}
+
+.user-avatar{
+	border: none;
+	border-radius: 50%;
+	float: left;
+	height: 3.4rem;
+	width: 3.4rem;
+}
+
+.suggestions{
+	display: flex;
+	flex-direction: column;
+}
+.suggestions>b{
+	color: $gray6;
+	font-size: 1rem;
+	font-weight: 500;
+	margin: .4rem 0 .6rem .5rem;
+}
+.sugg{
+	cursor: pointer;
+	display: flex;
+	flex-direction: row;
+	margin: .6rem;
+}
+.sugg>div{
+	height: 3rem;
+	margin: 0;
+	margin-left: 1rem;
+	padding: 0;
+}
+.sugg> img{
+	border: none;
+	border-radius: 50%;
+	float: left;
+	height: 2.8rem;
+	width: 2.8rem;
+}
+.sugg-text> p{
+	font-size: 1rem;
+	font-weight: 400;
+	margin: 0;
+}
+.sugg-text> b{
+	font-weight: 600;
+}
+
+.userinfo-footer{
+	color: #aaa;
+	font-size: .6rem;
+	margin-top: 1rem;
+	text-decoration: none;
+}
+.footer-text{
+	color: inherit;
+	margin: 1rem .8rem 1rem 0;
+	text-decoration: none;
+}

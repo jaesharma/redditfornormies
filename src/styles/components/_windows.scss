@@ -1,0 +1,36 @@
+.main-window{
+	background: none;
+	margin: 1.8rem 0;
+}
+.win-container{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+}
+.content-box{
+	display: flex;
+	flex-direction: column;
+	margin: 2rem 0;
+	width: 50%;
+}
+.info-box{
+	align-self: top;
+	background: none;
+}
+
+@media(max-width: $mobile-breakpoint){
+	.info-box{
+		display: none;
+	}
+	.main-window{
+		margin: 0;
+		overflow-y: hidden;
+	}
+	.content-box{
+		width: 100%;
+		overflow-y: hidden;
+	}
+	::-webkit-scrollbar {
+    	width: 2px;
+    }
+}
