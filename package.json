@@ -23,11 +23,11 @@
     "websocket-extensions": "^0.1.4"
   },
   "scripts": {
-    "start:server": "node server/server.js",
-    "start": "react-scripts start",
+    "start": "node server/server.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "devserver": "react-scripts start",
     "heroku-postbuild": "npm run build"
   },
   "eslintConfig": {
