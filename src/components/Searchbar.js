@@ -1,5 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {history} from '../router/AppRouter';
 import {select_subreddit, addSubreddit} from '../actions';
 
 let timeout=null
@@ -23,7 +25,7 @@ class Searchbar extends React.Component{
 		fetch(`http://www.reddit.com/search.json?q=${query}&type=sr`)
 			.then(res=> res.json())
 			.then(json=>json.data.children.map((sub)=>{
-				const {id,display_name_prefixed:name,title,icon_img,subscribers,public_description:description}=sub.data
+				const {id,display_name:name,title,icon_img,subscribers,public_description:description}=sub.data
 				obj={
 					id,
 					name,
@@ -83,15 +85,22 @@ class Searchbar extends React.Component{
 					  	icon=sub.icon_img
 					  }
 					  return (
-					  	<div 
-					  		onClick={()=>this.addSub(sub.name)}
-					  		name={sub.name}
-					  		className="searched-sub" 
-					  		key={sub.id}
-					  		>
-					  		<img className="searched-sub__icon" src={icon}/>
-					  		<b className="searched-sub__name">{sub.name}</b>
-					  		<p className="searched-sub__title">{sub.title}</p>
+					  	<div className="searched-sub-container" key={sub.id}>
+						  	<div
+						  		className="searched-sub" 
+						  		onClick={()=> {
+						  			this.props.history.push(`/r/${sub.name}`)
+						  		}}
+						  		name={sub.name}
+						  		key={sub.id}
+						  		>
+						  		<img className="searched-sub__icon" src={icon}/>
+						  		<b className="searched-sub__name">r/{sub.name}</b>
+						  		<p className="searched-sub__title">{sub.title}</p>
+						  	</div>
+					  		{!this.props.subreddits.includes(sub.name) && 
+					  		 <button className="addbtn" onClick={()=> this.addSub(`r/${sub.name}`)}>+</button>
+					  		}
 					  	</div>
 				       );
 					  })
@@ -103,4 +112,10 @@ class Searchbar extends React.Component{
 	}
 }
 
-export default connect()(Searchbar);
+const mapStateToProps=(state)=>{
+	return {
+		subreddits: state.subredditReducer.subreddits
+	}
+}
+
+export default withRouter(connect(mapStateToProps)(Searchbar));

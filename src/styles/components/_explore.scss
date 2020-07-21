@@ -1,9 +1,9 @@
 .explorer{
 	display: flex;
 	flex-flow: row wrap;
-	justify-content: space-between;
+	float: left;
+	justify-content: flex-start;
 	margin: 5rem 8rem;
-	position: absolute;
 	width: 80%;
 }
 .explore-post{
@@ -11,15 +11,15 @@
 	border: 1px solid rgba(0, 0, 0, 0.125);
 	display: flex;
 	flex-direction: column;
-	flex-grow: 3;
+	flex-grow: 4;
 	flex-shrink: 1;
 	height: 18rem;
+	min-height: 15rem;
 	margin: .5rem;
 	max-width: 15.8rem;
 	min-width: 15.8rem;
 	overflow: hidden;
 	position: relative;
-	word-wrap: break-word;
 }
 .explore-post:hover{
 	cursor: pointer;
@@ -36,7 +36,7 @@
 }
 .explore__textpost{
 	height: 100%;
-	padding: 2rem;
+	padding: 1rem;
 	text-align: left;
 	word-wrap: break-word;
 }
@@ -48,7 +48,8 @@
 .mid-loader{
 	height: 3rem;
 	margin: 3rem;
-	position: absolute;
+	position: fixed;
+	bottom: 0%;
 	right: 45%;
 	width: 3rem;
 }
@@ -70,7 +71,7 @@
 @media(max-width: $mobile-breakpoint){
 	.explorer{
 		width: 100%;
-		margin: 2.3rem 0;
+		margin: 0;
 	}
 	.explore-post{
 		width: 8.6rem;

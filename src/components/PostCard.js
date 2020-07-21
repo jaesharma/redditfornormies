@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import LoadPost from './LoadPost';
 import {togglehover} from '../actions';
 
-class ExplorePost extends Component{
+class PostCard extends Component{
 	constructor(props){
 		super(props)
 		this.state={
@@ -58,4 +58,4 @@ class ExplorePost extends Component{
 	}
 }
 
-export default ExplorePost;
+export default PostCard;

@@ -2,8 +2,7 @@ import React,{Component} from 'react';
 import Header from './Header';
 import Searchbar from './Searchbar';
 import {getobj} from '../actions/';
-import LoadPost from './LoadPost';
-import ExplorePost from './ExplorePost';
+import PostCard from './PostCard';
 import Menubar from './Menubar';
 import debounce from "lodash.debounce";
 
@@ -51,7 +50,7 @@ class Explore extends Component{
 						Object.entries(this.state.fetchedPosts).filter(([key,value],index)=>{
 							return !value.is_video
 						}).map(([key,value],index)=>{
-							return <ExplorePost key={key} value={value} index={index} />
+							return <PostCard key={key} value={value} index={index} />
 						})
 					}
 					<div>{this.state.loading && <img className="mid-loader" src="https://i.gifer.com/ZZ5H.gif"/>}</div>

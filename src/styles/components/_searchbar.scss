@@ -35,14 +35,14 @@
 .search-icon__placeholder{
 	position: absolute;
 	font-size: .9rem;
-	left: 42.4%;
+	left: 41.1%;
 }
 .search-icon__fix{
 	font-size: .9rem;
 	right: 93%;
 }
 .search:focus+.search-icon__placeholder{
-	left: 33.5%;
+	left: 32.4%;
 }
 
 .search-results{
@@ -52,22 +52,18 @@
 	border-radius: 2px;
 	color: black;
 	flex-direction: column;
-	margin: 3.5rem 0 0 5rem;
+	margin: 3.5rem 0 0 1rem;
 	max-height: 24rem;
 	min-height: 0;
 	overflow-y: scroll;
 	position: absolute;
-	width: 17rem;
+	width: 19rem;
 	word-wrap: break-word;
 	z-index: 6;
 }
 .searched-sub{
-	border: none;
-	border-bottom: 1px $gray2 solid;
 	flex-direction: row;
-	min-height: 4.8rem;
 	overflow-wrap: break-word;
-	overflow-y: hidden;
 	padding: .6rem;
 }
 .searched-sub__icon{
@@ -80,11 +76,6 @@
 .searched-sub__name{
 	margin: 1rem;
 }
-.searched-sub:hover{
-	background: $gray1;
-	cursor: pointer;
-	transition: background .2s ease;
-}
 .searched-sub__title{
 	margin: 0;
 	margin-left: 3.3rem;
@@ -95,7 +86,7 @@
 	color: $gray4;
 	cursor: pointer;
 	font-size: 1.5rem;
-	left: 56%;
+	left: 54%;
 	padding: 0 .4rem;
 	position: absolute;
 	top: 20%;
@@ -105,12 +96,47 @@
 }
 .sm-loader{
 	height: 1rem;
-	left: 56%;
+	left: 54%;
 	position: absolute;
 	top: 33%;
 	width: 1rem;
 	z-index: 6;	
 }
+
+.searched-sub-container{
+	display: flex;
+	flex-direction: row;
+	border: none;
+	border-bottom: 1px $gray2 solid;
+	min-height: 4.8rem;
+	align-self: center;
+	overflow-y: hidden;
+	width: 100%;
+	justify-content: space-between;
+	margin-left: .1rem;
+}
+.searched-sub-container:hover{
+	background: $gray1;
+	cursor: pointer;
+	transition: background .2s ease;
+}
+
+.addbtn{
+	position: relative;
+	float: right;
+	text-align: right;
+	background: none;
+	height: 2px;
+	border: none;
+	color: gray;
+	margin-top: 1rem;
+	cursor: pointer;
+	font-size: 2rem;
+}
+.addbtn:hover{
+	color: blue;
+}
+
 
 @media(max-width: $mobile-breakpoint){
 	.search_box-explore{

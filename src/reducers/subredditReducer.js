@@ -8,6 +8,7 @@ const initialState={
 const subredditReducer=(state=initialState,action)=>{
 	switch(action.type){
 		case ADD_SUBREDDIT:
+			if(state.subreddits.includes(action.payload.subreddit)) return state;
 			let subreddits=state.subreddits!==undefined?[...state.subreddits,action.payload.subreddit]:[action.payload.subreddit]
 			return {
 				...state,
