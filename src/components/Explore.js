@@ -34,7 +34,7 @@ class Explore extends Component{
 	loadposts(){
 		this.setState({loading: true})
 		let posts={}
-		fetch(`http://www.reddit.com/.json?limit=100&after=${this.state.after}`)
+		fetch(`https://www.reddit.com/.json?limit=60&after=${this.state.after}`)
 			.then(res=>res.json())
 			.then(json=>{this.setState({after: json.data.after});json.data.children.map(child=> Object.assign(posts,getobj(child.data)))})
 			.then(now=> this.setState({fetchedPosts: {...this.state.fetchedPosts,...posts},loading: false}))
