@@ -22,7 +22,7 @@ class Searchbar extends React.Component{
 		let value=e.target.value
 		timeout=setTimeout(function(query,that){
 		let obj={}
-		fetch(`http://www.reddit.com/search.json?q=${query}&type=sr`)
+		fetch(`https://www.reddit.com/search.json?q=${query}&type=sr`)
 			.then(res=> res.json())
 			.then(json=>json.data.children.map((sub)=>{
 				const {id,display_name:name,title,icon_img,subscribers,public_description:description}=sub.data
