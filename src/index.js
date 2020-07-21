@@ -14,13 +14,14 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-const unsubscribe=store.subscribe(()=> console.log(store.getState()));
-
 store.dispatch(addSubreddit('memes'))
 store.dispatch(addSubreddit('memes'))
 
 store.dispatch(addSubreddit('dankmemes'))
 store.dispatch(fetchPosts('dankmemes'))
+
+store.dispatch(addSubreddit('history'))
+store.dispatch(fetchPosts('history'))
 
 // store.dispatch(addSubreddit('pewdiepiesubmissions'))
 // store.dispatch(fetchPosts('pewdiepiesubmissions'))
@@ -34,8 +35,6 @@ store.dispatch(fetchPosts('dankmemes'))
 // store.dispatch(addSubreddit('programmers'))
 // store.dispatch(fetchPosts('programmers'))
 
-// store.dispatch(addSubreddit('history'))
-// store.dispatch(fetchPosts('history'))
 
 // store.dispatch(addSubreddit('aww'))
 // store.dispatch(addSubreddit('aww'))
