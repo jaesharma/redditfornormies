@@ -1,4 +1,4 @@
-import {REQUEST_POSTS, RECEIVE_POSTS, ADD_SUBREDDIT, DELETE_SUBREDDIT} from '../actions/action-types';
+import {REQUEST_POSTS, RECEIVE_POSTS, ADD_SUBREDDIT, REMOVE_SUBREDDIT} from '../actions/action-types';
 
 const initialState={
 	"data":{},
@@ -50,10 +50,21 @@ const postReducer=(state=initialState,action)=>{
 					}
 				}
 			}
-		case DELETE_SUBREDDIT:{
+		case REMOVE_SUBREDDIT:{
 				const subreddit=action.payload.subreddit
+				let items=state.data[subreddit].items
+				let posts=state.posts
+				Object.keys(posts).map((key)=>{
+					if(items.includes(key)){
+						delete posts[key]
+					}
+				})
+				let data=state.data
+				delete data[action.payload.subreddit]
 				return {
 					...state,
+					data: {...data},
+					posts: posts
 				}
 			}
 		default:

@@ -1,4 +1,4 @@
-import {ADD_SUBREDDIT, DELETE_SUBREDDIT, SELECT_SUBREDDIT, DESELECT_SUBREDDIT, REQUEST_POSTS, RECEIVE_POSTS} from './action-types';
+import {ADD_SUBREDDIT, SELECT_SUBREDDIT, DESELECT_SUBREDDIT, REQUEST_POSTS, RECEIVE_POSTS, REMOVE_SUBREDDIT} from './action-types';
 
 const request_posts=(subreddit)=>({
 	type: REQUEST_POSTS,
@@ -29,8 +29,8 @@ const add_subreddit=(subreddit,icon)=>({
 	payload: {subreddit,icon}
 });
 
-export const delete_subreddit=(subreddit)=>({
-	type: DELETE_SUBREDDIT,
+export const remove_subreddit=(subreddit)=>({
+	type: REMOVE_SUBREDDIT,
 	payload: {subreddit}
 })
 
@@ -78,8 +78,8 @@ export const addSubreddit=(subreddit)=>{
 	}
 }
 
-export const deleteSubreddit=(subreddit)=>{
+export const removeSubreddit=(subreddit)=>{
 	return (dispatch,getState)=>{
-		console.log("not implemented yet")
+		dispatch(remove_subreddit(subreddit))
 	}
 }

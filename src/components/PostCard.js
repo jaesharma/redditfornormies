@@ -30,6 +30,9 @@ class PostCard extends Component{
 			<div 
 				className="explore-post" 
 				key={id} 
+				onClick={()=>{
+					this.props.viewPost(this.props.value)
+				}}
 				onMouseEnter={this.MouseEnter} 
 				onMouseLeave={this.MouseLeave}>
 				{ this.state.hovering && <h2 className="hover-display">

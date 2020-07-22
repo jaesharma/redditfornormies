@@ -11,7 +11,7 @@ class SubredditProfile extends React.Component{
 		this.loadContext=this.loadContext.bind(this)
 	}
 	getObj=(data)=>{
-		const {id,title,created,description,display_name_prefixed: name,header_img,icon_img,public_description,subscribers,banner_background_color}=data
+		const {id,title,created,description,display_name: name,header_img,icon_img,public_description,subscribers,banner_background_color}=data
 		const obj={
 			id,
 			title,
@@ -50,7 +50,7 @@ class SubredditProfile extends React.Component{
 					title: 'u/reddituser',
 					created: '',
 					description: '',
-					name: 'reddit user',
+					name: 'reddituser',
 					header_img: '',
 					icon_img: 'https://theme.zdassets.com/theme_assets/2219439/89cbe072bbb76fc29a82367bd19b511df487d018.png',
 					public_description: '',

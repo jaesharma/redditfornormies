@@ -1,4 +1,4 @@
-import {ADD_SUBREDDIT, SELECT_SUBREDDIT, DESELECT_SUBREDDIT, DELETE_SUBREDDIT} from '../actions/action-types';
+import {ADD_SUBREDDIT, SELECT_SUBREDDIT, DESELECT_SUBREDDIT, REMOVE_SUBREDDIT} from '../actions/action-types';
 import Cookies from 'js-cookie';
 
 const initialState={
@@ -26,12 +26,16 @@ const subredditReducer=(state=initialState,action)=>{
 				...state,
 				activeSubreddit: undefined
 			}
-		case DELETE_SUBREDDIT:
-			const activeSubreddit=state.activeSubreddit===action.payload.subreddit? undefined: state.activeSubreddit
-			return {
-				...state,
-				activeSubreddit,
-				subreddits: state.subreddits.filter(sub=> sub!==action.payload.subreddit)
+		case REMOVE_SUBREDDIT:
+			{
+				const subreddits= state.subreddits.filter(sub=> sub!==action.payload.subreddit)
+				Cookies.set('subreddits',JSON.stringify(subreddits))
+				const activeSubreddit=state.activeSubreddit===action.payload.subreddit? undefined: state.activeSubreddit
+				return {
+					...state,
+					activeSubreddit,
+					subreddits
+				}
 			}
 		default:
 			return state

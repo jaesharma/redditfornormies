@@ -43,6 +43,10 @@
 	font-size: 3.2rem;
 	margin: 0 .4rem 1.3rem 1.4rem;
 }
+.add-sub:hover{
+	color: blue;
+	transition: color .2s ease;
+}
 .sub__name{
 	color: $gray7;
 	font-size: .9rem;

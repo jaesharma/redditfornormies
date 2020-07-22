@@ -35,6 +35,12 @@
 	}
 }
 
+.profile__name{
+	margin: 0;
+	font-size: 1.8rem;
+	font-weight: 80;
+}
+
 .profile-details{
 	display: inherit;
 	flex-direction: column;
@@ -52,15 +58,8 @@
 }
 
 .profile-details> div> p{
-	font-size: 1.1rem;
 	margin-right: 1.8rem;
 	cursor: pointer;
-}
-
-.profile__name{
-	margin: 0;
-	font-size: 2rem;
-	font-weight: 80;
 }
 
 .profilePosts{
@@ -85,4 +84,23 @@
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: flex-start;
+}
+
+
+.follow-btn{
+	position: relative;
+	float: left;
+	background: $blue;
+	width: 6rem;
+	height: 2rem;
+	border: none;
+	outline: none;
+	border-radius: 4px;
+	color: white;
+	cursor: pointer;
+}
+
+.follow-btn:hover{
+	background-color: #0075f6;
+	transition: background-color 2s ease;
 }
