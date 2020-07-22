@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Header from './Header';
 import {getobj} from '../actions';
+import Menubar from './Menubar';
 import PostCard from './PostCard';
 import debounce from "lodash.debounce";
 
@@ -24,7 +25,7 @@ class Profile extends React.Component{
 	}
 
 	setDetails(){
-		fetch(`https://www.reddit.com/${this.props.data.name}/.json?limit=15&after=${this.state.after}`)
+		fetch(`https://www.reddit.com/${this.props.data.name}/.json?limit=1&after=${this.state.after}`)
 			.then(res=> res.json())
 			.then(json=> json.data)
 			.then(data=>{
@@ -78,6 +79,7 @@ class Profile extends React.Component{
 					</div>
 				</div>
 				<div>{this.state.loading && <img className="mid-loader" src="https://i.gifer.com/ZZ5H.gif"/>}</div>
+				<Menubar/>
 			</div>
 		);
 	}

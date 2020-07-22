@@ -56,6 +56,7 @@
 	max-height: 24rem;
 	min-height: 0;
 	overflow-y: scroll;
+	overflow-x: hidden;
 	position: absolute;
 	width: 19rem;
 	word-wrap: break-word;
@@ -132,6 +133,7 @@
 	margin-top: 1rem;
 	cursor: pointer;
 	font-size: 2rem;
+	outline: none;
 }
 .addbtn:hover{
 	color: blue;

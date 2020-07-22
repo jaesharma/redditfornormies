@@ -90,6 +90,7 @@ class Searchbar extends React.Component{
 						  		className="searched-sub" 
 						  		onClick={()=> {
 						  			this.props.history.push(`/r/${sub.name}`)
+						  			this.setState({value: '',subs: []})
 						  		}}
 						  		name={sub.name}
 						  		key={sub.id}

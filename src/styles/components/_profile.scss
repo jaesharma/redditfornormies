@@ -4,6 +4,10 @@
 	width: 60%;
 	position: absolute;
 	margin: 0 20%;
+	@media(max-width: $mobile-breakpoint){
+		margin: 0;
+		width: 100%;
+	}
 }
 
 .profile-info{
@@ -12,6 +16,9 @@
 	border-bottom: 1px $gray3 solid;
 	padding: 6rem 0;
 	float: left;
+	@media(max-width: $mobile-breakpoint){
+		padding-top: 2.4rem;
+	}
 }
 
 .profile-info> img{
@@ -20,6 +27,12 @@
 	width: 9rem;
 	height: 9em;
 	padding: 1rem;
+	@media(max-width: $mobile-breakpoint){
+		padding: 0;
+		width: 5rem;
+		height: 5rem;
+		margin-top: 1.2rem;
+	}
 }
 
 .profile-details{
@@ -28,6 +41,9 @@
 	position: relative;
 	top: 1rem;
 	left: 2rem;
+	@media(max-width: $mobile-breakpoint){
+		left: 1rem;
+	}
 }
 
 .profile-details> div{
@@ -63,9 +79,6 @@
 
 .profile__description{
 	font-size: 1rem;
-}
-
-.profilePosts{
 }
 
 .profile-gallery{

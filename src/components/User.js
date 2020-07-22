@@ -69,7 +69,7 @@ class User extends React.Component{
 				</div>
 				<div className="userinfo-footer">
 					<NavLink to="#"><span className="footer-text">About</span></NavLink>
-					<NavLink to="#"><span className="footer-text">Github</span></NavLink>
+					<a target="_blank" href="https://github.com/jaesharma/redditfornormies"><span className="footer-text">Github</span></a>
 					<p>&#169; REDDIT FROM PARALLEL TIMELINE</p>
 				</div>
 			</div>

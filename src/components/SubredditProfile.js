@@ -1,6 +1,5 @@
 import React from 'react';
 import Profile from './Profile';
-import {getProfile} from '../actions';
 
 class SubredditProfile extends React.Component{
 	constructor(props){
@@ -9,6 +8,7 @@ class SubredditProfile extends React.Component{
 			obj: {},
 			datafetched: false
 		}
+		this.loadContext=this.loadContext.bind(this)
 	}
 	getObj=(data)=>{
 		const {id,title,created,description,display_name_prefixed: name,header_img,icon_img,public_description,subscribers,banner_background_color}=data
@@ -26,9 +26,18 @@ class SubredditProfile extends React.Component{
 		}
 		return obj
 	}
+
 	componentDidMount(){
+		this.loadContext();
+	}
+
+	componentWillUnmount(){
+		this.unlisten()
+	}
+
+	loadContext(path=`r/${this.props.match.params.subreddit}`){
 		if(this.props.match.path!=='/user'){
-			fetch(`https://www.reddit.com/r/${this.props.match.params.subreddit}/about/.json`)
+			fetch(`https://www.reddit.com/${path}/about/.json`)
 				.then(res=> res.json())
 				.then(json=> this.getObj(json.data))
 				.then(obj=> this.setState({obj: {isuser: false,...obj},datafetched: true}))
@@ -53,6 +62,15 @@ class SubredditProfile extends React.Component{
 		}
 	}
 	render(){
+		this.unlisten = this.props.history.listen((location, action) => {
+			if(location.pathname.includes('r/')){
+	      		this.loadContext(location.pathname)
+	      		this.forceUpdate()
+			}
+			else{
+				this.unlisten()
+			}
+    	});
 		return(
 			<div>
 				{this.state.datafetched && <Profile data={this.state.obj}/>}

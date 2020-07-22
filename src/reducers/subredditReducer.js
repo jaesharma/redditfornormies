@@ -1,4 +1,5 @@
 import {ADD_SUBREDDIT, SELECT_SUBREDDIT, DESELECT_SUBREDDIT, DELETE_SUBREDDIT} from '../actions/action-types';
+import Cookies from 'js-cookie';
 
 const initialState={
 	activeSubreddit:undefined,
@@ -10,6 +11,7 @@ const subredditReducer=(state=initialState,action)=>{
 		case ADD_SUBREDDIT:
 			if(state.subreddits.includes(action.payload.subreddit)) return state;
 			let subreddits=state.subreddits!==undefined?[...state.subreddits,action.payload.subreddit]:[action.payload.subreddit]
+			Cookies.set('subreddits',JSON.stringify(subreddits))
 			return {
 				...state,
 				subreddits

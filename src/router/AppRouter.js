@@ -15,7 +15,7 @@ const AppRouter=()=>(
 				<Route path="/home" component={Dashboard} />
 				<Route path="/explore" component={Explore} />
 				<Route path="/user" component={SubredditProfile} key={Math.random()} />
-				<Route path="/r/:subreddit" component={SubredditProfile} key={Math.random()}  />
+				<Route exact={true} path="/r/:subreddit" component={SubredditProfile} key={Math.random()}  />
 			</Switch>
 		</Router>
 )
