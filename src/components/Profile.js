@@ -5,6 +5,7 @@ import {getobj} from '../actions';
 import Menubar from './Menubar';
 import PostCard from './PostCard';
 import ViewPost from './ViewPost';
+import FollowingTab from './FollowingTab';
 import debounce from "lodash.debounce";
 import {addSubreddit, removeSubreddit} from '../actions';
 
@@ -17,7 +18,8 @@ class Profile extends React.Component{
 			loading: false,
 			currPost: {},
 			viewPost: false,
-			datafetched: false
+			datafetched: false,
+			followingTab: false
 		}
 		window.onscroll=debounce(()=>{
 			if(window.innerHeight+document.documentElement.scrollTop===document.documentElement.scrollHeight){
@@ -28,6 +30,7 @@ class Profile extends React.Component{
 		this.setDetails=this.setDetails.bind(this)
 		this.viewPost=this.viewPost.bind(this)
 		this.hidepost=this.hidepost.bind(this)
+		this.closeftab=this.closeftab.bind(this)
 	}
 
 	setDetails(){
@@ -49,6 +52,9 @@ class Profile extends React.Component{
 	hidepost(){
 		this.setState({viewPost: false,currPost: {}})
 	}
+	closeftab(){
+		this.setState({followingTab: false})
+	}
 	render(){
 		let {isuser,id,title,created,description,name,header_img,icon_img,public_description,subscribers,banner_background_color}=this.props.data
 		if(icon_img===''){
@@ -59,6 +65,13 @@ class Profile extends React.Component{
 			<div>
 				<Header ishome={true}/>
 				{this.state.viewPost && <ViewPost hidepost={this.hidepost} data={this.state.currPost}/>}
+				{this.state.followingTab && 
+					<FollowingTab 
+						dispatch={this.props.dispatch}
+						closeftab={this.closeftab}
+						followings={this.props.subdata}
+					/>
+				}
 				<div className="profile">
 					<div className="profile-info">
 						<img 
@@ -72,6 +85,7 @@ class Profile extends React.Component{
 									!isuser && this.props.subreddits.includes(this.props.data.name) && 
 										<button 
 											className="follow-btn" 
+											style={{background: 'gray'}}
 											onClick={()=>this.props.dispatch(removeSubreddit(this.props.data.name))}>
 											Unfollow
 										</button>
@@ -86,8 +100,11 @@ class Profile extends React.Component{
 								}
 							</div>
 							<div>
-								{isuser? <p><b>{this.props.subreddits.length}</b> followings</p>:
-										 <p><b>{this.props.data.subscribers}</b> followers</p>	 
+								{isuser? 
+										<p onClick={()=>this.setState({followingTab: true})}>
+											<b>{this.props.subreddits.length}</b> followings
+										</p>:
+										<p><b>{this.props.data.subscribers}</b> followers</p>	 
 								}
 							</div>
 							{isuser? <b className="profile__username">reddit user</b>:
@@ -121,7 +138,8 @@ class Profile extends React.Component{
 
 const mapStateToProps=(state,props)=>{
 	return {
-		subreddits: state.subredditReducer.subreddits
+		subreddits: state.subredditReducer.subreddits,
+		subdata: state.postReducer.data
 	}
 }
 

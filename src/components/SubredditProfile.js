@@ -9,6 +9,12 @@ class SubredditProfile extends React.Component{
 			datafetched: false
 		}
 		this.loadContext=this.loadContext.bind(this)
+		this.unlisten = this.props.history.listen((location, action) => {
+			if(location.pathname.includes('r/')){
+	      		this.loadContext(location.pathname)
+	      		this.forceUpdate()
+			}
+    	});
 	}
 	getObj=(data)=>{
 		const {id,title,created,description,display_name: name,header_img,icon_img,public_description,subscribers,banner_background_color}=data
@@ -62,18 +68,9 @@ class SubredditProfile extends React.Component{
 		}
 	}
 	render(){
-		this.unlisten = this.props.history.listen((location, action) => {
-			if(location.pathname.includes('r/')){
-	      		this.loadContext(location.pathname)
-	      		this.forceUpdate()
-			}
-			else{
-				this.unlisten()
-			}
-    	});
 		return(
 			<div>
-				{this.state.datafetched && <Profile data={this.state.obj}/>}
+				{this.state.datafetched && <Profile key={Math.random()} data={this.state.obj}/>}
 			</div>
 		);
 	}
