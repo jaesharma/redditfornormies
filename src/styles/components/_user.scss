@@ -18,6 +18,7 @@
 }
 
 .user-username{
+	text-decoration: none;
 	margin: 0;
 	font-size: .9rem;
 	font-weight: 600;
@@ -38,8 +39,11 @@
 }
 
 .suggestions{
+	width: 22rem;
 	display: flex;
 	flex-direction: column;
+	height: 22rem;
+	margin-bottom: 1rem;
 }
 .suggestions>b{
 	color: $gray6;
@@ -48,10 +52,11 @@
 	margin: .4rem 0 .6rem .5rem;
 }
 .sugg{
-	cursor: pointer;
 	display: flex;
 	flex-direction: row;
+	justify-content: space-between;
 	margin: .6rem;
+	align-items: center;
 }
 .sugg>div{
 	height: 3rem;
@@ -66,12 +71,26 @@
 	height: 2.8rem;
 	width: 2.8rem;
 }
+.sugg-text{
+	width: 2rem;
+	position: absolute;
+	left: 4rem;
+}
 .sugg-text> p{
 	font-size: 1rem;
 	font-weight: 400;
 	margin: 0;
 }
-.sugg-text> b{
+.sugg> button{
+	font-size: 2.5rem;
+	display: flex;
+	right: 10%;
+	margin-bottom: 4rem;
+	position: absolute;
+}
+.sugg-text_title{
+	color: black;
+	text-decoration: none;
 	font-weight: 600;
 }
 

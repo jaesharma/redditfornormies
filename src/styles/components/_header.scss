@@ -1,11 +1,10 @@
 .header-main{
 	align-items: center;
-	align-self: center;
 	background: white;
 	border: 2px $gray2 solid;
 	display: flex;
 	flex-direction: row;
-	height: 4rem;
+	height: 3.5rem;
 	justify-content: space-between;
 	position: fixed;
 	width: 100%;
@@ -16,9 +15,9 @@
 .header-text{
 	color: black;
 	font-family: 'Grand Hotel', cursive;
-	font-size: 3rem;
+	font-size: 2.2rem;
 	font-weight: 300;
-	margin-left: 5rem;
+	margin-left: 12.6%;
 	text-decoration: none;
 }
 .header-btns{
@@ -51,7 +50,7 @@
 	.header-text{
 		margin: 0;
 		margin-left: 38%;
-		font-size: 1.9rem;
+		font-size: 1.6rem;
 	}
 	.header-btns{
 		display: none;

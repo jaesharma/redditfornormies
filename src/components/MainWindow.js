@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
-import HomeWindow from './HomeWindow';
-import ActiveWindow from './ActiveWindow';
+import ContentBox from './ContentBox';
+import _ from 'lodash';
 
 class MainWindow extends Component{
 	render(){
@@ -9,12 +9,16 @@ class MainWindow extends Component{
 		return(
 			<div className="main-window">
 				{this.props.activeSub && data[activeSub].items ? 
-					<ActiveWindow 
+					<ContentBox 
+					   ishome={false}
 					   sub={activeSub} 
 					   items={data[activeSub].items} 
 					   posts={posts} 
 					/> :
-					<HomeWindow/>
+					<ContentBox
+						ishome={true}
+						posts={_.shuffle(this.props.posts)}
+					/>
 				 }
 			</div>
 		);

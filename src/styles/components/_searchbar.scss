@@ -2,7 +2,7 @@
 	display: flex;
 	flex-direction: row;
 	float: left;
-	width: 22rem;
+	width: 14rem;
 	margin-left: 6rem;
 }
 .search{
@@ -11,7 +11,7 @@
 	border-radius: 3px;
 	color: gray;
 	font-size: 1rem;
-	height: 2.1rem;
+	height: 2rem;
 	outline: none;
 	padding: 0 2rem;
 	width: 100%;
@@ -28,21 +28,18 @@
 /* search-icon */
 .search-icon{
 	align-self: center;
-	color: $gray3;
+	font-size: .9rem;
 	position: relative;
-	z-index: 4;
+	color: $gray3;
 }
 .search-icon__placeholder{
-	position: absolute;
-	font-size: .9rem;
-	left: 41.1%;
+	right: 67%;
 }
 .search-icon__fix{
-	font-size: .9rem;
-	right: 93%;
+	right: 88.3%;
 }
 .search:focus+.search-icon__placeholder{
-	left: 32.4%;
+	right: 88.5%;
 }
 
 .search-results{
@@ -50,9 +47,8 @@
 	background: white;
 	border-bottom: 1px $gray1 solid;
 	border-radius: 2px;
-	color: black;
 	flex-direction: column;
-	margin: 3.5rem 0 0 1rem;
+	margin: 3.5rem 0 0 -2rem;
 	max-height: 24rem;
 	min-height: 0;
 	overflow-y: scroll;
@@ -87,19 +83,19 @@
 	color: $gray4;
 	cursor: pointer;
 	font-size: 1.5rem;
-	left: 54%;
+	left: 53.5%;
 	padding: 0 .4rem;
 	position: absolute;
-	top: 20%;
+	top: 23%;
 	transform: rotate(45deg);
 	transition: all .4s ease;
 	z-index: 6;
 }
 .sm-loader{
 	height: 1rem;
-	left: 54%;
+	left: 53.8%;
 	position: absolute;
-	top: 33%;
+	top: 35%;
 	width: 1rem;
 	z-index: 6;	
 }

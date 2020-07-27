@@ -101,7 +101,7 @@ class Profile extends React.Component{
 							</div>
 							<div>
 								{isuser? 
-										<p onClick={()=>this.setState({followingTab: true})}>
+										<p style={{cursor: 'pointer'}} onClick={()=>this.setState({followingTab: true})}>
 											<b>{this.props.subreddits.length}</b> followings
 										</p>:
 										<p><b>{this.props.data.subscribers}</b> followers</p>	 

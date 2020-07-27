@@ -10,9 +10,7 @@
 	border: none;
 	border-top: 1px $gray2 solid;
 	z-index: 6;
-}
-@media(max-width: $mobile-breakpoint){
-	.menubar{
+	@media(max-width: $mobile-breakpoint){
 		display: flex;
 	}
 }

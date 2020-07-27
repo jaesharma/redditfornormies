@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import {NavLink} from 'react-router-dom';
 import Comments from './Comments';
 
 class LoadPost extends Component{
@@ -52,7 +53,10 @@ class LoadPost extends Component{
 		return (
 			<div className="post-container">
 				<div className="post-top">
-					<div className="post-top__username">{ishome? `r/${subreddit}`: `u/${username}`}</div>
+					{
+						ishome ? <NavLink to={`/r/${subreddit}`} style={{color:'black'}} className="post-top__username">r/{subreddit}</NavLink> :
+								 <div className="post-top__username">u/{username}</div>
+					}
 				</div>
 				<div className="post-mid">
 					{is_video &&

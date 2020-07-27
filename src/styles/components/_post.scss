@@ -9,7 +9,9 @@
 	padding: 0 1rem;
 }
 .post-top__username{
-	margin-top: 1.2rem;
+	display: flex;
+	text-decoration: none;
+	padding-top: 1rem;
 }
 .post-container{
 	display: flex;

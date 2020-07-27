@@ -6,6 +6,8 @@
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
+	border: 1px solid $gray2;
+	height: 100vh;
 }
 .content-box{
 	display: flex;
@@ -24,11 +26,9 @@
 	}
 	.main-window{
 		margin: 0;
-		overflow-y: hidden;
 	}
 	.content-box{
 		width: 100%;
-		overflow-y: hidden;
 	}
 	::-webkit-scrollbar {
     	width: 2px;

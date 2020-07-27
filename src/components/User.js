@@ -46,7 +46,7 @@ class User extends React.Component{
 							alt="user-avatar"
 						/>
 					<div className="userinfo-text">
-						<p className="user-username">u/reddituser</p>
+						<NavLink to="/user" className="user-username" style={{color: 'black'}}>u/reddituser</NavLink>
 						<p className="user-name">reddit user</p>
 					</div>
 				</div>
@@ -56,12 +56,18 @@ class User extends React.Component{
 						Object.entries(this.state.suggestions).map(([key,value],index)=>{
 							const {id,title,icon_img,subscribers}=value
 							return(
-								<div className="sugg" key={id} onClick={()=>that.props.dispatch(addSubreddit(title))}>
+								<div className="sugg" key={id}>
 									<img src={icon_img}/>
 									<div className="sugg-text">
-										<b>{title}</b>
+										<NavLink to={`/r/${title}`} className="sugg-text_title">{title}</NavLink>
 										<p>{subscribers}</p>
 									</div>
+									<button 
+										className="addbtn"
+										onClick={()=>that.props.dispatch(addSubreddit(title))}
+									>
+										+
+									</button>
 								</div>
 							);
 						},that)

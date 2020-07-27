@@ -1,9 +1,8 @@
 import React from 'react';
+import {NavLink} from 'react-router-dom';
 import {removeSubreddit} from '../actions';
 
 const Followings=({followings,closeftab,dispatch})=>{
-
-	console.log(followings)
 	return (
 		<div className="followingtab">
 			<div className="ftab">
@@ -16,11 +15,13 @@ const Followings=({followings,closeftab,dispatch})=>{
 						Object.entries(followings).map(([subname,details],index)=>{
 							return (
 								<div key={index} className="following">
-									<img src={details.icon}/>
-									{subname.length>12? 
-										<p>{subname.substring(0,12)}...</p>:
-										<p>{subname}</p>
-									}
+									<NavLink to={`r/${subname}`} className="following_details">
+										<img src={details.icon}/>
+										{subname.length>12? 
+											<p>{subname.substring(0,12)}...</p>:
+											<p>{subname}</p>
+										}
+									</NavLink>
 									<div>
 										{ 
 											<button 
