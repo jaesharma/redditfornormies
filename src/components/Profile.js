@@ -4,10 +4,26 @@ import Header from './Header';
 import {getobj} from '../actions';
 import Menubar from './Menubar';
 import PostCard from './PostCard';
+import Cookies from 'js-cookie';
 import ViewPost from './ViewPost';
 import FollowingTab from './FollowingTab';
+import Trophies from './Trophies';
+import Settings from './Settings';
 import debounce from "lodash.debounce";
-import {addSubreddit, removeSubreddit} from '../actions';
+import {addSubreddit, removeSubreddit, logout} from '../actions';
+import {StyledProfile,
+		StyledProfileInfo,
+		StyledProfileName,
+		StyledProfileDetails,
+		StyledProfilePosts,
+		StyledProfileIcon,
+		StyledButton,
+		StyledInfoBlock,
+		StyledProfileGallery,
+		StyledInlineDiv,
+		StyledLoginBoard,
+		StyledLoader} from '../styles/components/profileStyles';
+import {StyledBtnImg} from '../styles/components/headerStyles';
 
 class Profile extends React.Component{
 	constructor(props){
@@ -19,48 +35,64 @@ class Profile extends React.Component{
 			currPost: {},
 			viewPost: false,
 			datafetched: false,
-			followingTab: false
+			followingTab: false,
+			settings: false,
+			trophies: false
 		}
 		window.onscroll=debounce(()=>{
-			if(window.innerHeight+document.documentElement.scrollTop===document.documentElement.scrollHeight){
+			if(window.innerHeight+document.documentElement.scrollTop===document.documentElement.scrollHeight+12){
 				this.setState({loading: true})
-				this.setDetails()
 			}
 		},100)
-		this.setDetails=this.setDetails.bind(this)
 		this.viewPost=this.viewPost.bind(this)
 		this.hidepost=this.hidepost.bind(this)
-		this.closeftab=this.closeftab.bind(this)
 	}
 
-	setDetails(){
-		fetch(`https://www.reddit.com/r/${this.props.data.name}/.json?limit=1&after=${this.state.after}`)
-			.then(res=> res.json())
-			.then(json=> json.data)
-			.then(data=>{
-				data.children.map(post=>{
-					const obj={...this.state.data,...getobj(post.data)}
-					this.setState({data: obj,after: data.after})
-				})
-			})
-			.then(wait=> this.setState({datafetched: true,loading: false}))
-			.catch(err=> {console.log(err); this.setState({loading: false})})
-	}
 	viewPost(data){
 		this.setState({viewPost: true,currPost: data})
 	}
 	hidepost(){
 		this.setState({viewPost: false,currPost: {}})
 	}
-	closeftab(){
-		this.setState({followingTab: false})
+	closeTab=(entity)=>{
+		this.setState({[entity]: false})
+	}
+	trophies=()=>{
+		this.setState(prevState=>({trophies: !prevState.trophies}))
+	}
+	settings=()=>{
+		this.setState(prevState=>({settings: !prevState.settings}))
+	}
+	logoutHandler=()=>{
+		this.props.dispatch(logout())
+		const cookies=JSON.parse(Cookies.get('subreddits'))
+
+		if(cookies){
+			cookies.map(sub=>{
+				this.props.dispatch(addSubreddit(sub))
+			})
+		}
+	}
+	getUserInfo=()=>{
+		fetch(`https://oauth.reddit.com/api/v1/me`,{
+			method: 'GET',
+			headers: {
+				Authorization: `bearer ${this.props.access_token}`
+			}
+		})
+		.then(res=>res.json())
+		.then(json=> {
+			const {icon_img,id,name,num_friends,pref_nightmode}=json
+		})
+		.catch(err=>{
+			console.log('something went wrong',err)
+		})
+	}
+	componentDidMount(){
+		this.getUserInfo()
 	}
 	render(){
-		let {isuser,id,title,created,description,name,header_img,icon_img,public_description,subscribers,banner_background_color}=this.props.data
-		if(icon_img===''){
-			icon_img="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcRUmib4qKsK8tRCq5aahbTKKFnsUCxv3Ep8qg&usqp=CAU"
-		}
-		if(!this.state.datafetched && !isuser) this.setDetails()
+		let {authenticated, user}=this.props.authdata
 		return(
 			<div>
 				<Header ishome={true}/>
@@ -68,54 +100,62 @@ class Profile extends React.Component{
 				{this.state.followingTab && 
 					<FollowingTab 
 						dispatch={this.props.dispatch}
-						closeftab={this.closeftab}
+						closeTab={this.closeTab}
 						followings={this.props.subdata}
 					/>
 				}
-				<div className="profile">
-					<div className="profile-info">
-						<img 
-							className="profile-icon" 
-							src={icon_img}
+				{
+					this.state.trophies &&
+						<Trophies 
+							token={this.props.access_token}
+							closeTab={this.closeTab}
 						/>
-						<div className="profile-details">
-							<div>
-								<p className="profile__name">{`${isuser? 'u/': 'r/'}${this.props.data.name}`}</p>
-								{
-									!isuser && this.props.subreddits.includes(this.props.data.name) && 
-										<button 
-											className="follow-btn" 
-											style={{background: 'gray'}}
-											onClick={()=>this.props.dispatch(removeSubreddit(this.props.data.name))}>
-											Unfollow
-										</button>
-								}
-								{
-									!isuser && !this.props.subreddits.includes(this.props.data.name) && 
-										<button 
-											className="follow-btn" 
-											onClick={()=>this.props.dispatch(addSubreddit(this.props.data.name))}>
-											Follow
-										</button>
-								}
+				}
+				{
+					this.state.settings &&
+						<Settings closeTab={this.closeTab}/>
+				}
+				<StyledProfile>
+					<StyledProfileInfo>
+						<StyledProfileIcon
+							src={user.icon_img}
+						/>
+						<StyledProfileDetails>
+							<div className="userdetails">
+								<StyledProfileName>{`u/${user.name}`}</StyledProfileName>
+								<StyledBtnImg src={this.props.nightmode? "/images/trophy-light.png": "/images/trophy.png"} onClick={()=>this.trophies()} alt="trophies" type="trophies"/>
+								<StyledBtnImg src={this.props.nightmode? "/images/settings-light.png": "/images/settings.png"} onClick={()=>this.settings()} alt="settings" type="settings"/>
 							</div>
-							<div>
-								{isuser? 
-										<p style={{cursor: 'pointer'}} onClick={()=>this.setState({followingTab: true})}>
-											<b>{this.props.subreddits.length}</b> followings
-										</p>:
-										<p><b>{this.props.data.subscribers}</b> followers</p>	 
+							<StyledInfoBlock>
+								<b>{user.fname}</b>
+								{
+									authenticated && 
+									<StyledInlineDiv>
+										<StyledBtnImg style={{cursor: 'default'}} src="/images/chakra.png" alt="karma" type="settings"/>
+										<span>{this.props.authdata.user.total_karma}</span>
+									</StyledInlineDiv>
 								}
-							</div>
-							{isuser? <b className="profile__username">reddit user</b>:
-								<b className="profile__username">{title}</b>
-							}
-							{!isuser && <p className="profile__description">{public_description}</p>}
-						</div>
-					</div>
-					<div className="profilePosts">
-						{isuser? <p>No Posts Yet</p>:
-							<div className="profile-gallery">
+								<p style={{cursor: 'pointer'}} onClick={()=>this.setState({followingTab: true})}>
+									<b>{this.props.subreddits.length}</b> followings
+								</p>
+							</StyledInfoBlock>
+						</StyledProfileDetails>
+					</StyledProfileInfo>
+					<StyledProfilePosts>
+							<StyledLoginBoard>
+								{
+										authenticated && <StyledButton type="secondary" onClick={()=>this.logoutHandler()}>logout</StyledButton> ||
+										<span>
+											<p>You are not logged in</p>
+											<a style={{textDecoration: "none"}} href="https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENTID}&response_type=code&state=d897kjj39&redirect_uri=http://www.redditfornormies.herokuapp.com/fetchtoken/&scope=account,creddits,edit,flair,history,identity,livemanage,modconfig,modcontributors,modflair,modlog,modmail,modothers,modposts,modself,modwiki,mysubreddits,privatemessages,read,report,save,structuredstyles,submit,subscribe,vote,wikiedit,wikiread&duration=permanent">
+												<StyledButton type="primary">
+													Login
+												</StyledButton>
+											</a>
+										</span>
+								}
+							</StyledLoginBoard>
+							<StyledProfileGallery>
 								{
 									Object.entries(this.state.data).map(([key,value],index)=>{
 										return <PostCard 
@@ -125,11 +165,10 @@ class Profile extends React.Component{
 											index={index} />
 									})
 								}
-							</div>
-						}
-					</div>
-				</div>
-				<div>{this.state.loading && <img className="mid-loader" src="https://i.gifer.com/ZZ5H.gif"/>}</div>
+							</StyledProfileGallery>
+					</StyledProfilePosts>
+				</StyledProfile>
+				<div>{this.state.loading && <StyledLoader type="pageload" size="mid" src="/loaders/spinner.gif"/>}</div>
 				<Menubar/>
 			</div>
 		);
@@ -139,7 +178,10 @@ class Profile extends React.Component{
 const mapStateToProps=(state,props)=>{
 	return {
 		subreddits: state.subredditReducer.subreddits,
-		subdata: state.postReducer.data
+		subdata: state.postReducer.data,
+		authdata: state.authenticationReducer,
+		access_token: state.authenticationReducer.access_token,
+		nightmode: state.settingsReducer.nightmode
 	}
 }
 

@@ -1,20 +1,29 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {removeSubreddit} from '../actions';
+import {StyledFollowingTab,
+		StyledFTab,
+		StyledFTabHeader,
+		StyledFTabText,
+		StyledFTabCloseBtn,
+		StyledFollowings,
+		StyledFollowing,
+		StyledUnfollowBtn
+	} from '../styles/components/followingtabStyles';
 
-const Followings=({followings,closeftab,dispatch})=>{
+const Followings=({followings,closeTab,dispatch})=>{
 	return (
-		<div className="followingtab">
-			<div className="ftab">
-				<div className="ftab__header">
-					<p className="ftab__text" >Following</p>
-					<p className="ftab__closebtn" onClick={()=>closeftab()}>+</p>
-				</div>
-				<div className="followings">
+		<StyledFollowingTab>
+			<StyledFTab>
+				<StyledFTabHeader>
+					<StyledFTabText>Following</StyledFTabText>
+					<StyledFTabCloseBtn onClick={()=>closeTab('followingTab')}>+</StyledFTabCloseBtn>
+				</StyledFTabHeader>
+				<StyledFollowings>
 					{
 						Object.entries(followings).map(([subname,details],index)=>{
 							return (
-								<div key={index} className="following">
+								<StyledFollowing key={index}>
 									<NavLink to={`r/${subname}`} className="following_details">
 										<img src={details.icon}/>
 										{subname.length>12? 
@@ -24,20 +33,19 @@ const Followings=({followings,closeftab,dispatch})=>{
 									</NavLink>
 									<div>
 										{ 
-											<button 
-												className="unfollowbtn" 
+											<StyledUnfollowBtn
 												onClick={()=>dispatch(removeSubreddit(subname))}>
 												Unfollow
-											</button>
+											</StyledUnfollowBtn>
 										}
 									</div>
-								</div>
+								</StyledFollowing>
 							);
 						})
 					}
-				</div>
-			</div>
-		</div>
+				</StyledFollowings>
+			</StyledFTab>
+		</StyledFollowingTab>
 	);
 }
 

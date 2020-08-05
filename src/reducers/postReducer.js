@@ -1,4 +1,4 @@
-import {REQUEST_POSTS, RECEIVE_POSTS, ADD_SUBREDDIT, REMOVE_SUBREDDIT} from '../actions/action-types';
+import {REQUEST_POSTS, RECEIVE_POSTS, ADD_SUBREDDIT, UPVOTE, DOWNVOTE, LOGGED_IN, LOGOUT, REMOVE_SUBREDDIT} from '../actions/action-types';
 
 const initialState={
 	"data":{},
@@ -67,6 +67,44 @@ const postReducer=(state=initialState,action)=>{
 					posts: posts
 				}
 			}
+		case LOGGED_IN:{
+			return {
+				data: {},
+				posts: {}
+			}
+		}
+		case LOGOUT:{
+			return {
+				data: {},
+				posts: {}
+			}
+		}
+		case UPVOTE:{
+			return{
+				...state,
+				posts: {
+					...state.posts,
+					[action.payload.id]:{
+						...state.posts[action.payload.id],
+						score: action.payload.score,
+						likes: action.payload.likes
+					}
+				}
+			}
+		}
+		case DOWNVOTE:{
+			return{
+				...state,
+				posts: {
+					...state.posts,
+					[action.payload.id]:{
+						...state.posts[action.payload.id],
+						score: action.payload.score,
+						likes: action.payload.likes
+					}
+				}
+			}
+		}
 		default:
 			return state
 	}

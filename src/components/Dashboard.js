@@ -4,10 +4,11 @@ import MainWindow from './MainWindow';
 import Header from './Header';
 import Menubar from './Menubar';
 import User from './User';
+import {StyledWindowContainer, StyledContentBox, StyledInfoBox} from '../styles/components/windowStyles';
 
 class Dashboard extends Component{
 	constructor(props){
-		super(props)
+	super(props)
 	this.textInputRef=React.createRef();
 	this.focusTextInput=this.focusTextInput.bind(this);
 	}
@@ -17,20 +18,21 @@ class Dashboard extends Component{
 	}
 	render(){
 		return(
-			<div>
+			<div style={{width: "99.7%"}}>
 				<Header 
 					ishome={true}
+					dashboard={true}
 					textInputRef={this.textInputRef} 
 					focusTextInput={this.focusTextInput} />
-				<div className="win-container">
-					<div className="content-box">
+				<StyledWindowContainer>
+					<StyledContentBox>
 					  <Redditor focusTextInput={this.focusTextInput}/>
 					  <MainWindow/>
-					</div>
-					<div className="info-box">
+					</StyledContentBox>
+					<StyledInfoBox>
 						<User/>
-					</div>
-				</div>
+					</StyledInfoBox>
+				</StyledWindowContainer>
 				<Menubar/>
 			</div>
 		)

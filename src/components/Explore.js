@@ -6,6 +6,8 @@ import PostCard from './PostCard';
 import Menubar from './Menubar';
 import ViewPost from './ViewPost';
 import debounce from "lodash.debounce";
+import {StyledExplorer} from '../styles/components/exploreStyles';
+import {StyledLoader} from '../styles/components/profileStyles';
 
 class Explore extends Component{
 	constructor(props){
@@ -14,7 +16,7 @@ class Explore extends Component{
 			fetchedPosts:{},
 			after: undefined,
 			loading: false,
-			currPost: {},
+			currPostid: undefined,
 			viewPost: false,
 			window_width: window.innerWidth
 		}
@@ -28,6 +30,7 @@ class Explore extends Component{
 		this.updateWidth=this.updateWidth.bind(this)
 		this.viewPost=this.viewPost.bind(this)
 		this.hidepost=this.hidepost.bind(this)
+		this.handleChanges=this.handleChanges.bind(this)
 	}
 	componentDidMount(){
 		this.loadposts()
@@ -43,39 +46,58 @@ class Explore extends Component{
 			.then(json=>{this.setState({after: json.data.after});json.data.children.map(child=> Object.assign(posts,getobj(child.data)))})
 			.then(now=> this.setState({fetchedPosts: {...this.state.fetchedPosts,...posts},loading: false}))
 	}
-	viewPost(data){
-		this.setState({viewPost: true,currPost: data})
+	viewPost(id){
+		this.setState({viewPost: true,currPostid: id})
 	}
-	hidepost(){
+	hidepost(e){
 		this.setState({viewPost: false,currPost: {}})
+	}
+	handleChanges(id,score,likes){
+		this.setState(prevState=>({
+			fetchedPosts:{
+				...prevState.fetchedPosts,
+				[id]:{
+					...prevState.fetchedPosts[id],
+					score,
+					likes
+				}
+			}
+		}))
 	}
 	render(){
 		window.addEventListener('resize',this.updateWidth)
 		return(
-			<div className="explore-container">
-				{this.state.viewPost && <ViewPost data={this.state.currPost}/>}
+			<div>
 				{this.state.window_width>=740? <Header/>:
 						<Searchbar ishome={false}/>
 				}
 				{
 					this.state.viewPost &&
-					<ViewPost data={this.state.currPost} hidepost={this.hidepost}/>
+					<ViewPost 
+						handleChanges={this.handleChanges} 
+						data={this.state.fetchedPosts[this.state.currPostid]} 
+						hidePost={this.hidepost}
+					/>
 				}
-				<div className="explorer">
+				<StyledExplorer>
 					{
 						Object.entries(this.state.fetchedPosts).filter(([key,value],index)=>{
 							return !value.is_video
 						}).map(([key,value],index)=>{
-							return <PostCard 
-										key={key} 
-										viewPost={this.viewPost} 
-										value={value} 
-										index={index} 
-									/>
+							if(value){
+								return <PostCard 
+											key={key} 
+											viewPost={this.viewPost} 
+											value={value} 
+											index={index} 
+										/>
+							}else{
+								return <div></div>
+							}
 						})
 					}
-					<div>{this.state.loading && <img className="mid-loader" src="https://i.gifer.com/ZZ5H.gif"/>}</div>
-				</div>
+					<div>{this.state.loading && <StyledLoader size="mid" type="pageload" src="https://i.gifer.com/ZZ5H.gif"/>}</div>
+				</StyledExplorer>
 				<Menubar/>
 			</div>
 		)

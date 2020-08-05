@@ -3,8 +3,12 @@ import React from 'react';
 import {createBrowserHistory} from 'history';
 import Dashboard from '../components/Dashboard';
 import Explore from '../components/Explore';
+import FetchToken from '../components/FetchToken';
+import Inbox from '../components/Inbox';
 import SubredditProfile from '../components/SubredditProfile';
+import Profile from '../components/Profile';
 import NotFound from '../components/NotFound';
+import PrivateRoute from './PrivateRoute';
 
 export const history=createBrowserHistory();
 
@@ -13,9 +17,12 @@ const AppRouter=()=>(
 			<Switch>
 				<Route path="/" component={Dashboard} exact={true}/>
 				<Route path="/home" component={Dashboard} />
+		  		<PrivateRoute path="/inbox" component={Inbox} exact={true} />
 				<Route path="/explore" component={Explore} />
-				<Route path="/user" component={SubredditProfile} key={Math.random()} />
+				<Route path="/user" component={Profile} key={Math.random()} />
+				<Route path="/fetchtoken" component={FetchToken} />
 				<Route exact={true} path="/r/:subreddit" component={SubredditProfile} key={Math.random()}  />
+				<Route component={NotFound}/>
 			</Switch>
 		</Router>
 )

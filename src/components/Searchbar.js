@@ -3,6 +3,13 @@ import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {history} from '../router/AppRouter';
 import {select_subreddit, addSubreddit} from '../actions';
+import {sub} from '../actions/api-calls';
+import styled from 'styled-components';
+import {StyledSearchbar,StyledSearchInput,StyledSearchIcon,
+		StyledSearchResults,StyledClearBtn,StyledAddBtn,
+		StyledSearchedSub,StyledSearchedSubContainer,StyledSearchedResultsArrow}
+		from '../styles/components/searchbarStyles';
+import {StyledLoader} from '../styles/components/profileStyles';
 
 let timeout=null
 
@@ -51,64 +58,64 @@ class Searchbar extends React.Component{
 	addSub=(sub)=>{
 		this.setState({value: '',subs: []})
 		this.props.dispatch(addSubreddit(sub.slice(2,)))
+		if(this.props.authenticated){
+			sub(this.props.access_token,this.state.subdetails.full_name)
+		}
 	}
 	clear=()=>{
-		this.setState({value: ''})
+		this.setState({value: '',subs: []})
 	}
 	render(){
 		return (
-			<div className={this.props.ishome? "search-box search_box-home": "search-box search_box-explore"}>
-				<input 
+			<StyledSearchbar ishome={this.props.ishome}>
+				<StyledSearchInput 
 					onFocus={this.onFocusHandler}
 					onChange={this.onChangeHandler}
 					onBlur={this.onBlurHandler}
 					type='text' 
-					className="search"
+					tabIndex="1"
 					value={this.state.value}
 					ref={this.props.textInputRef}
 					placeholder="Search"/>
-				{!!this.state.value ? <span className="search-icon search-icon__fix">&#128269;&#xFE0E;</span>:
-					<span className="search-icon search-icon__placeholder">&#128269;&#xFE0E;</span>
-				}
+				<StyledSearchIcon className="icon" type={!!this.state.value? "fix": "pseudo"}>&#128269;&#xFE0E;</StyledSearchIcon>
 				{this.state.focus && !!this.state.value.length && 
 					<span>
-						{this.state.loading? <img className="sm-loader" src="https://i.gifer.com/ZZ5H.gif"/> :
-						<span onClick={this.clear} className="clear-btn">+</span>}
+						{this.state.loading? <StyledLoader size="sm" type="input" src="/loaders/spinner.gif"/> :
+						<StyledClearBtn onClick={this.clear}>+</StyledClearBtn>}
 					</span>
 				}
-				{this.state.focus && 
-				<div className="search-results">
-					{
-					  this.state.subs.map((sub)=>{
-					  let icon=''
-					  {sub.icon_img===''? icon="https://i.redd.it/130am13nj6201.png":
-					  	icon=sub.icon_img
-					  }
-					  return (
-					  	<div className="searched-sub-container" key={sub.id}>
-						  	<div
-						  		className="searched-sub" 
-						  		onClick={()=> {
-						  			this.setState({value: '',subs: []})
-						  			this.props.history.push(`/r/${sub.name}`)
-						  		}}
-						  		name={sub.name}
-						  		key={sub.id}
-						  		>
-						  		<img className="searched-sub__icon" src={icon}/>
-						  		<b className="searched-sub__name">r/{sub.name}</b>
-						  		<p className="searched-sub__title">{sub.title}</p>
-						  	</div>
-					  		{!this.props.subreddits.includes(sub.name) && 
-					  		 <button className="addbtn" onClick={()=> this.addSub(`r/${sub.name}`)}>+</button>
-					  		}
-					  	</div>
-				       );
-					  })
-					}
-				</div>
+				{this.state.focus && this.state.subs.length>0 && 
+				<StyledSearchedResultsArrow>
+					<StyledSearchResults>
+						{
+						  this.state.subs.map((sub)=>{
+						  let icon=''
+						  {sub.icon_img===''? icon="/images/icon.png":icon=sub.icon_img}
+						  return (
+						  	<StyledSearchedSubContainer key={sub.id}>
+							  	<StyledSearchedSub
+							  		onClick={()=> {
+							  			this.setState({value: '',subs: []})
+							  			this.props.history.push(`/r/${sub.name}`)
+							  		}}
+							  		name={sub.name}
+							  		key={sub.id}
+							  		>
+							  		<img src={icon}/>
+							  		<b>r/{sub.name}</b>
+							  		<p>{sub.title}</p>
+							  	</StyledSearchedSub>
+						  		{!this.props.subreddits.includes(sub.name) && 
+						  		 <StyledAddBtn size="mid" onClick={()=> this.addSub(`r/${sub.name}`)}>+</StyledAddBtn>
+						  		}
+						  	</StyledSearchedSubContainer>
+					       );
+						  })
+						}
+					</StyledSearchResults>
+				</StyledSearchedResultsArrow>
 				}
-			</div>
+			</StyledSearchbar>
 		);
 	}
 }

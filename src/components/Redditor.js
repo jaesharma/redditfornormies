@@ -1,6 +1,7 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import RenderSubs from './RenderSubs';
+import {StyledRedditor, StyledScrollBtn} from '../styles/components/redditorStyles';
 
 class Redditor extends Component{
 	constructor(props){
@@ -25,26 +26,27 @@ class Redditor extends Component{
 		return(
 			<div>
 				{this.state.scrollpos>50 && 
-					<div className="scroll-btn btn-left" 
+					<StyledScrollBtn 
+						position="left" 
 						onClick={this.scrollLeft}>
 							<span>></span>
-					</div>
+					</StyledScrollBtn>
 				}
-				<div className="redditor" ref={this.redditor} >
+				<StyledRedditor ref={this.redditor} >
 					<RenderSubs 
 						focusTextInput={this.props.focusTextInput} 
 						subs={this.props.subreddits}
 						activeSub={this.props.activeSub}
 					/>
-				</div>
+				</StyledRedditor>
 				{this.state.scrollpos<this.state.offsetWidth && 
-					<div 
-					className="scroll-btn btn-right" 
-					onClick={this.scrollRight}>
-						<span>></span>
-					</div>
+					<StyledScrollBtn 
+						position="right" 
+						onClick={this.scrollRight}>
+							<span>></span>
+					</StyledScrollBtn>
 				}
-			</div>
+			</div> 
 		)
 	}
 }

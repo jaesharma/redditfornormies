@@ -2,16 +2,30 @@ import React from 'react';
 import {NavLink} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {deselect_subreddit} from '../actions';
+import {StyledBtnImg} from '../styles/components/headerStyles';
+import {StyledMenubar} from '../styles/components/menubarStyles';
 
-const Menubar=(props)=>{
-	return(
-		<div className="menubar">
-			<NavLink to="/"><img onClick={()=>props.dispatch(deselect_subreddit())} className="btn btn-home" src="./../../images/home.png" alt="home" /></NavLink>
-			<NavLink to="/explore"><img className="btn btn-compas" src='./../../images/compas.png' alt="explore"/></NavLink>
-			<img className="btn btn-like" src='./../../images/like.png' alt="notifications"/>
-			<NavLink to="/user"><img className="profile-icon" src="https://theme.zdassets.com/theme_assets/2219439/89cbe072bbb76fc29a82367bd19b511df487d018.png"/></NavLink>
-		</div>
-	);
+class Menubar extends React.Component{
+	constructor(props){
+		super(props)
+	}
+	render(){
+		return(
+			<StyledMenubar>
+				<NavLink to="/"><StyledBtnImg onClick={()=>this.props.dispatch(deselect_subreddit())} type="home" src={this.props.nightmode? "/images/home-light.png": "/images/home.png"} alt="home" /></NavLink>
+				<NavLink to="/explore"><StyledBtnImg type="compas" src={this.props.nightmode? "/images/compas-light.png": '/images/compas.png'} alt="explore"/></NavLink>
+				<StyledBtnImg type="like" src={this.props.nightmode? "/images/like-light.png": '/images/like.png'} alt="notifications"/>
+				<NavLink to="/user"><StyledBtnImg src={this.props.icon_img}/></NavLink>
+			</StyledMenubar>
+		);
+	}
 }
 
-export default connect()(Menubar);
+const mapStateToProps=(state)=>{
+	return {
+		icon_img: state.authenticationReducer.user.icon_img,
+		nightmode: state.settingsReducer.nightmode
+	}
+}
+
+export default connect(mapStateToProps)(Menubar);

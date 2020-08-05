@@ -1,13 +1,14 @@
 import React,{Component} from 'react';
 import {connect} from 'react-redux';
 import ContentBox from './ContentBox';
+import {StyledMainWindow} from '../styles/components/windowStyles';
 import _ from 'lodash';
 
 class MainWindow extends Component{
 	render(){
 		const {activeSub, posts, data}=this.props
 		return(
-			<div className="main-window">
+			<StyledMainWindow>
 				{this.props.activeSub && data[activeSub].items ? 
 					<ContentBox 
 					   ishome={false}
@@ -20,7 +21,7 @@ class MainWindow extends Component{
 						posts={_.shuffle(this.props.posts)}
 					/>
 				 }
-			</div>
+			</StyledMainWindow>
 		);
 	}
 }
@@ -28,7 +29,6 @@ class MainWindow extends Component{
 const mapStateToProps=(state,props)=>{
 	return {
 		activeSub: state.subredditReducer.activeSubreddit,
-		posts: state.postReducer.posts,
 		data: state.postReducer.data
 	}
 }

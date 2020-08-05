@@ -1,24 +1,35 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import AppRouter from './router/AppRouter';
+import App from './components/App';
 import {Provider} from 'react-redux';
 import store from './store';
 import Cookies from 'js-cookie';
-import './styles/styles.scss';
 import {select_subreddit, addSubreddit, fetchPosts, deleteSubreddit} from './actions';
 
-const subreddits=Cookies.get('subreddits')
+if(process.env.NODE_ENV==='production'){
+	require('dotenv').config({path: '.env.development'});
+}else if(process.env.NODE_ENV==='development'){
+	require('dotenv').config({path: '.env'});
+	console.log(process.env)
+}
+
+const subreddits=[]
+
+try{
+	subreddits=JSON.parse(Cookies.get('subreddits'))
+}catch(e){
+	//pass
+}
 
 if(subreddits){
-	JSON.parse(subreddits).map(sub=>{
+	subreddits.map(sub=>{
 		store.dispatch(addSubreddit(sub))
-		store.dispatch(fetchPosts(sub))
 	})
 }
 
 ReactDOM.render(
 	<Provider store={store}>
-    	<AppRouter/>
+    	<App/>
     </Provider>
     ,
   document.getElementById('root')

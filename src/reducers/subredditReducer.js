@@ -1,4 +1,4 @@
-import {ADD_SUBREDDIT, SELECT_SUBREDDIT, DESELECT_SUBREDDIT, REMOVE_SUBREDDIT} from '../actions/action-types';
+import {ADD_SUBREDDIT, SELECT_SUBREDDIT, DESELECT_SUBREDDIT, LOGGED_IN, LOGOUT, REMOVE_SUBREDDIT} from '../actions/action-types';
 import Cookies from 'js-cookie';
 
 const initialState={
@@ -11,7 +11,9 @@ const subredditReducer=(state=initialState,action)=>{
 		case ADD_SUBREDDIT:
 			if(state.subreddits.includes(action.payload.subreddit)) return state;
 			let subreddits=state.subreddits!==undefined?[...state.subreddits,action.payload.subreddit]:[action.payload.subreddit]
-			Cookies.set('subreddits',JSON.stringify(subreddits))
+			if(!action.payload.authenticated){
+				Cookies.set('subreddits',JSON.stringify(subreddits))
+			}
 			return {
 				...state,
 				subreddits
@@ -32,11 +34,21 @@ const subredditReducer=(state=initialState,action)=>{
 				Cookies.set('subreddits',JSON.stringify(subreddits))
 				const activeSubreddit=state.activeSubreddit===action.payload.subreddit? undefined: state.activeSubreddit
 				return {
-					...state,
 					activeSubreddit,
 					subreddits
 				}
 			}
+		case LOGGED_IN:
+			return {
+				activeSubreddit: undefined,
+				subreddits: []
+			}
+		case LOGOUT:{
+			return {
+				...state,
+				subreddits: []
+			}
+		}
 		default:
 			return state
 	}

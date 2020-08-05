@@ -1,8 +1,19 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import {addSubreddit} from '../actions';
 import {connect} from 'react-redux';
 import _ from 'lodash';
+import {
+	StyledUserInfoContainer,
+	StyledUserInfo,
+	StyledUserInfoText,
+	StyledUserAvatar,
+	StyledUserName,
+	StyledSuggestions,
+	StyledSuggestion,
+	StyledSuggestionText,
+	StyledUserInfoFooter,
+} from '../styles/components/userStyles';
+import {StyledAddBtn} from '../styles/components/searchbarStyles';
 
 //hardcoded suggestions
 const subs=['memes','history','dankmemes','redditdev',
@@ -38,49 +49,48 @@ class User extends React.Component{
 	render(){
 		const that=this
 		return (
-			<div className="userinfo-container">
-				<div className="userinfo">
-						<img 
-							className="user-avatar" 
-							src="https://theme.zdassets.com/theme_assets/2219439/89cbe072bbb76fc29a82367bd19b511df487d018.png" 
+			<StyledUserInfoContainer>
+				<StyledUserInfo>
+						<StyledUserAvatar
+							src={this.props.user.icon_img}
 							alt="user-avatar"
 						/>
-					<div className="userinfo-text">
-						<NavLink to="/user" className="user-username" style={{color: 'black'}}>u/reddituser</NavLink>
-						<p className="user-name">reddit user</p>
-					</div>
-				</div>
-				<div className="suggestions">
+					<StyledUserInfoText>
+						<NavLink to="/user" className="username">u/{this.props.user.name}</NavLink>
+						<p className="name">{this.props.user.name}</p>
+					</StyledUserInfoText>
+				</StyledUserInfo>
+				<StyledSuggestions>
 					<b>Suggestions For You</b>
 					{
 						Object.entries(this.state.suggestions).map(([key,value],index)=>{
 							const {id,title,icon_img,subscribers}=value
 							return(
-								<div className="sugg" key={id}>
+								<StyledSuggestion key={id}>
 									<img src={icon_img}/>
-									<div className="sugg-text">
-										<NavLink to={`/r/${title}`} className="sugg-text_title">{title}</NavLink>
+									<StyledSuggestionText>
+										<NavLink to={`/r/${title}`} className="suggestionTextTitle">{title}</NavLink>
 										<p>{subscribers}</p>
-									</div>
-									<button 
-										className="addbtn"
-										onClick={()=>that.props.dispatch(addSubreddit(title))}
-									>
-										+
-									</button>
-								</div>
+									</StyledSuggestionText>
+								</StyledSuggestion>
 							);
 						},that)
 					}
-				</div>
-				<div className="userinfo-footer">
-					<NavLink to="#"><span className="footer-text">About</span></NavLink>
-					<a target="_blank" href="https://github.com/jaesharma/redditfornormies"><span className="footer-text">Github</span></a>
+				</StyledSuggestions>
+				<StyledUserInfoFooter>
+					<NavLink to="#" className="footertext">About</NavLink>
+					<a className="footertext" target="_blank" href="https://github.com/jaesharma/redditfornormies">Github</a>
 					<p>&#169; REDDIT FROM PARALLEL TIMELINE</p>
-				</div>
-			</div>
+				</StyledUserInfoFooter>
+			</StyledUserInfoContainer>
 		);
 	}
 }
 
-export default connect()(User);
+const mapStateToProps=(state)=>{
+	return{
+		user: state.authenticationReducer.user
+	}
+}
+
+export default connect(mapStateToProps)(User);
