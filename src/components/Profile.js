@@ -147,7 +147,7 @@ class Profile extends React.Component{
 										authenticated && <StyledButton type="secondary" onClick={()=>this.logoutHandler()}>logout</StyledButton> ||
 										<span>
 											<p>You are not logged in</p>
-											<a style={{textDecoration: "none"}} href="https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENTID}&response_type=code&state=d897kjj39&redirect_uri=http://www.redditfornormies.herokuapp.com/fetchtoken/&scope=account,creddits,edit,flair,history,identity,livemanage,modconfig,modcontributors,modflair,modlog,modmail,modothers,modposts,modself,modwiki,mysubreddits,privatemessages,read,report,save,structuredstyles,submit,subscribe,vote,wikiedit,wikiread&duration=permanent">
+											<a style={{textDecoration: "none"}} href={`https://www.reddit.com/api/v1/authorize?client_id=${process.env.CLIENTID}&response_type=code&state=d897kjj39&redirect_uri=https://www.redditfornormies.herokuapp.com/fetchtoken/&scope=account,creddits,edit,flair,history,identity,livemanage,modconfig,modcontributors,modflair,modlog,modmail,modothers,modposts,modself,modwiki,mysubreddits,privatemessages,read,report,save,structuredstyles,submit,subscribe,vote,wikiedit,wikiread&duration=permanent`}>
 												<StyledButton type="primary">
 													Login
 												</StyledButton>

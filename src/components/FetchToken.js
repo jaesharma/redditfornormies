@@ -20,7 +20,7 @@ class FetchToken extends React.Component{
 		const code=params.code
 		const clientID=process.env.CLIENTID
 		const clientSecret=process.env.CLIENTSECRET
-		const redirectUri='http://www.redditfornormies.herokuapp.com/fetchtoken/'
+		const redirectUri='https://www.redditfornormies.herokuapp.com/fetchtoken/'
 		if (!code) return null;
 		const encode = btoa(`${clientID}:${clientSecret}`);
 		const redditTokens=fetch('https://www.reddit.com/api/v1/access_token',{
