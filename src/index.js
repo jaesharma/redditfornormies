@@ -6,13 +6,6 @@ import store from './store';
 import Cookies from 'js-cookie';
 import {select_subreddit, addSubreddit, fetchPosts, deleteSubreddit} from './actions';
 
-if(process.env.NODE_ENV==='production'){
-	require('dotenv').config({path: '.env.development'});
-}else if(process.env.NODE_ENV==='development'){
-	require('dotenv').config({path: '.env'});
-	console.log(process.env)
-}
-
 const subreddits=[]
 
 try{
