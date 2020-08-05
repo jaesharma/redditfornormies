@@ -18,8 +18,8 @@ class FetchToken extends React.Component{
 	setAccessToken(){
 		const params=queryString.parse(this.props.location.search)
 		const code=params.code
-		const clientID=process.env.CLIENTID
-		const clientSecret=process.env.CLIENTSECRET
+		const clientID=process.env.REACT_APP_CLIENTID
+		const clientSecret=process.env.REACT_APP_CLIENTSECRET
 		const redirectUri='https://www.redditfornormies.herokuapp.com/fetchtoken/'
 		if (!code) return null;
 		const encode = btoa(`${clientID}:${clientSecret}`);

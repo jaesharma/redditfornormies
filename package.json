@@ -40,6 +40,9 @@
     "devserver": "react-scripts start",
     "heroku-postbuild": "npm run build"
   },
+  "engines": {
+   "node": "12.13.1"
+   },
   "eslintConfig": {
     "extends": "react-app"
   },
