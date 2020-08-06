@@ -4,13 +4,8 @@ import App from './components/App';
 import {Provider} from 'react-redux';
 import store from './store';
 import Cookies from 'js-cookie';
+import runtimeEnv from '@mars/heroku-js-runtime-env';
 import {select_subreddit, addSubreddit, fetchPosts, deleteSubreddit} from './actions';
-
-if(process.env.REACT_APP_NODE_ENV==="development"){
-	require('dotenv').config('.env.development')
-}else if(process.env.REACT_APP_NODE_ENV==="production"){
-	require('dotenv').config()
-}
 
 const subreddits=[]
 
