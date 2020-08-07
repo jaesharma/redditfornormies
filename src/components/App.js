@@ -20,7 +20,7 @@ const darktheme={
 	name: "dark",
 	bodybg: "#121212",
 	border: "#363537",
-	themeborder: "#000",
+	themeborder: colors.gray7,
 	bg: "#363537",
 	color: colors.gray4,
 	breakpoint: "42rem",

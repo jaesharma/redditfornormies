@@ -38,7 +38,7 @@ class Header extends Component{
 							<NavLink to="/inbox"><StyledBtnImg type="inbox" src={this.props.nightmode? '/images/dm-light.png': '/images/dm.png'} alt="inbox"/></NavLink>
 						}
 						<NavLink to="/explore"><StyledBtnImg type="compas" src={this.props.nightmode? '/images/compas-light.png': '/images/compas.png'} alt="explore"/></NavLink>
-						<StyledBtnImg type="like" ref={this.wrapperRef} src={this.props.nightmode? '/images/like-light.png': '/images/like.png'} alt="notifications"/>
+						<StyledBtnImg type="like" nightmode={this.props.nightmode} ref={this.wrapperRef} src={this.props.nightmode? '/images/like-light.png': '/images/like.png'} alt="notifications"/>
 						<NavLink to="/user"><StyledBtnImg src={this.props.icon_img}/></NavLink>
 					</StyledHeaderBtns>
 				</StyledHeader>

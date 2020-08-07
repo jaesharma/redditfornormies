@@ -71,8 +71,11 @@ export const StyledTabBody=styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	height: 100%;
+	min-height: 100%;
 	overflow-y: scroll;
+	&::-webkit-scrollbar{
+		width: 0px;
+	}
 `
 
 export const StyledTabEntry=styled.p`

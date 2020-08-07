@@ -15,6 +15,7 @@ export const StyledDM=styled.div`
 	border: 1px solid ${({theme})=>theme.themeborder};
 	@media(max-width: ${({theme})=>theme.breakpoint}){
 		positon: default;
+		border: none;
 		width: 100%;
 		height: 100%;
 		margin: 0;

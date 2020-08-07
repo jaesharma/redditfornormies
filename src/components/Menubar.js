@@ -14,7 +14,9 @@ class Menubar extends React.Component{
 			<StyledMenubar>
 				<NavLink to="/"><StyledBtnImg onClick={()=>this.props.dispatch(deselect_subreddit())} type="home" src={this.props.nightmode? "/images/home-light.png": "/images/home.png"} alt="home" /></NavLink>
 				<NavLink to="/explore"><StyledBtnImg type="compas" src={this.props.nightmode? "/images/compas-light.png": '/images/compas.png'} alt="explore"/></NavLink>
-				<StyledBtnImg type="like" src={this.props.nightmode? "/images/like-light.png": '/images/like.png'} alt="notifications"/>
+				<NavLink to="/notifications">
+					<StyledBtnImg type="like" src={this.props.nightmode? "/images/like-light.png": '/images/like.png'} alt="notifications"/>
+				</NavLink>
 				<NavLink to="/user"><StyledBtnImg src={this.props.icon_img}/></NavLink>
 			</StyledMenubar>
 		);

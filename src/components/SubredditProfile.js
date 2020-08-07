@@ -181,7 +181,7 @@ class SubredditProfile extends React.Component{
 							src={icon_img}
 						/>
 						<StyledProfileDetails>
-							<div>
+							<div className="subbtn">
 								<StyledProfileName>{`r/${subreddit}`}</StyledProfileName>
 								{
 									this.props.subreddits.includes(subreddit)? 

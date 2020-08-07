@@ -30,6 +30,7 @@ export const StyledProfileInfo=styled.div`
 
 export const StyledProfileName=styled.p`
 	margin: 0;
+	margin-right: 1rem;
 	font-size: 1.8rem;
 	font-weight: 80;
 `
@@ -43,23 +44,33 @@ export const StyledProfileDetails=styled.div`
 		left: 1rem;
 		width: 70%;
 	}
-	&> div{
-		display: inherit;
-		flex-direction: row;
-	}
-	&> div> p{
-		margin-right: 1.8rem;
-	}
 	&>.userdetails{
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
+		overflow-wrap: break-word;
+		@media(max-width: ${({theme})=> theme.breakpoint}){
+			flex-direction: column;
+		}
+	}
+	&>.subbtn{
+		display: flex;
+		flex-direction: row;
+		@media(max-width: ${({theme})=> theme.breakpoint}){
+			margin: 0;
+			flex-direction: column;
+		}
 	}
 	&>p{
 		width: 90%;
 		text-align: justify;
 		overflow-wrap: break-word;
 	}
+`
+
+export const StyledButtonGroup=styled.div`
+	display: flex;
+	flex-direction: row;
 `
 
 export const StyledProfilePosts=styled.div`

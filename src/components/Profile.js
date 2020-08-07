@@ -22,6 +22,7 @@ import {StyledProfile,
 		StyledProfileGallery,
 		StyledInlineDiv,
 		StyledLoginBoard,
+		StyledButtonGroup,
 		StyledLoader} from '../styles/components/profileStyles';
 import {StyledBtnImg} from '../styles/components/headerStyles';
 
@@ -123,8 +124,10 @@ class Profile extends React.Component{
 						<StyledProfileDetails>
 							<div className="userdetails">
 								<StyledProfileName>{`u/${user.name}`}</StyledProfileName>
-								<StyledBtnImg src={this.props.nightmode? "/images/trophy-light.png": "/images/trophy.png"} onClick={()=>this.trophies()} alt="trophies" type="trophies"/>
-								<StyledBtnImg src={this.props.nightmode? "/images/settings-light.png": "/images/settings.png"} onClick={()=>this.settings()} alt="settings" type="settings"/>
+								<StyledButtonGroup>
+									<StyledBtnImg src={this.props.nightmode? "/images/trophy-light.png": "/images/trophy.png"} onClick={()=>this.trophies()} alt="trophies" type="trophies"/>
+									<StyledBtnImg src={this.props.nightmode? "/images/settings-light.png": "/images/settings.png"} onClick={()=>this.settings()} alt="settings" type="settings"/>
+								</StyledButtonGroup>
 							</div>
 							<StyledInfoBlock>
 								<b>{user.fname}</b>

@@ -4,7 +4,7 @@ export const StyledNotificationBarContainer=styled.div`
 	display: flex;
 	flex-direction: column;
 	position: fixed;
-	background: ${({theme})=>theme.bg};
+	background: ${({theme})=>theme.name==="light" && "white" || theme.bg};
 	top: 4rem;
 	border-radius: 6px;
 	right: 12%;
@@ -13,6 +13,7 @@ export const StyledNotificationBarContainer=styled.div`
 	max-height: 20rem;
 	overflow-x: hidden;
 	overflow-y: scroll;
+	z-index: 3;
 	${props=>{
 		if(props.theme.name==="light"){
 			return "box-shadow: 4px 4px 1rem gray;border: 1px ${({theme})=>theme.color} solid;";
@@ -21,14 +22,14 @@ export const StyledNotificationBarContainer=styled.div`
 			return "border: 1px ${({theme})=>theme.colors.gray7} solid;";
 		}
 	}}
-	z-index: 3;
 `
 
 export const StyledNotification=styled.div`
 	width: 100%;
 	min-height: 5.4rem;
-	border-bottom: 1px solid ${({theme})=>theme.border};
-	margin: 0 1rem;
+	background: ${({theme})=> theme.bg};
+	border-bottom: 1px solid ${({theme})=>theme.themeborder};
+	padding: 0 1rem;
 	overflow: hidden;
 	cursor: pointer;
 	display: flex;
@@ -39,7 +40,13 @@ export const StyledNFooter=styled.div`
 	display: flex;
 	flex-direction: row;
 	font-size: 12px;
+	align-items: flex-end;
 	justify-content: space-between;
+	&>div{
+		display: flex;
+		flex-direction: row;
+		margin-bottom: .8rem;
+	}
 `
 export const StyledNotificationBar=styled.div`
 	&::before {
@@ -52,7 +59,7 @@ export const StyledNotificationBar=styled.div`
 	    border-top: 15px solid transparent;
 	    border-left: 15px solid transparent;
 	    border-right: 15px solid transparent;
-	    border-bottom: 15px solid ${({theme})=>theme.bg};
+	    border-bottom: 15px solid ${({theme})=>theme.name==="light" && "white" || theme.bg};
 	    z-index: 99;
 	    content: '';
 	}
@@ -67,7 +74,7 @@ export const StyledNotificationBar=styled.div`
 	    border-top: 15px solid transparent;
 	    border-left: 15px solid transparent;
 	    border-right: 15px solid transparent;
-	    border-bottom: 13px solid ${({theme})=>theme.themeborder};
+	    border-bottom: 13px solid ${({theme})=>theme.name==="light" && theme.colors.gray3 || theme.bodybg};
 	    z-index: 98;
 	    content: '';
 	}

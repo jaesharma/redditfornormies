@@ -47,6 +47,7 @@ export const StyledBtnImg=styled.img`
 	border-radius: 50%;
 	cursor: pointer;
 	height: 1.6rem;
+	width: 1.6rem;
 	margin: 0 .6rem;
 	transition: all .1s ease;
 	${props=>{
@@ -63,6 +64,10 @@ export const StyledBtnImg=styled.img`
 			return "margin: 0;padding: 0;height: 1.4rem;transform: rotate(180deg);";
 		case "headerInbox":
 			return "display: none;position: fixed;transform: rotate(15deg);width: 2rem;height: 2rem;z-index: 11;right:1%;";
+		case "arrow":
+			return "display: none;position: absolute;left: 0;top: 2%;transform: scale(1);";
+		case "comment":
+			return "width: 1rem;height: 1rem;"
 	    }
 	}}
 	@media(max-width: ${({theme})=>theme.breakpoint}){

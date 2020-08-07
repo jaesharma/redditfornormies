@@ -5,6 +5,7 @@ import Dashboard from '../components/Dashboard';
 import Explore from '../components/Explore';
 import FetchToken from '../components/FetchToken';
 import Inbox from '../components/Inbox';
+import Notifications from '../components/Notifications';
 import SubredditProfile from '../components/SubredditProfile';
 import Profile from '../components/Profile';
 import NotFound from '../components/NotFound';
@@ -19,6 +20,7 @@ const AppRouter=()=>(
 				<Route path="/home" component={Dashboard} />
 		  		<PrivateRoute path="/inbox" component={Inbox} exact={true} />
 				<Route path="/explore" component={Explore} />
+				<Route path="/notifications" component={Notifications} />
 				<Route path="/user" component={Profile} key={Math.random()} />
 				<Route path="/fetchtoken" component={FetchToken} />
 				<Route exact={true} path="/r/:subreddit" component={SubredditProfile} key={Math.random()}  />

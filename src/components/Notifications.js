@@ -1,15 +1,14 @@
 import React from 'react';
 import moment from 'moment';
-import {StyledNotificationBar,
-		StyledNotificationBarContainer,
-		StyledNotification,
-		StyledNFooter} from '../styles/components/notificationbarStyles';
+import {connect} from 'react-redux';
+import {StyledPageHeading, StyledPageCanvas,Styledbody} from '../styles/components/pageStyles';
 import {StyledBtnImg} from '../styles/components/headerStyles';
-import {StyledLoader} from '../styles/components/profileStyles';
+import {StyledNotification, StyledNFooter} from '../styles/components/notificationbarStyles'
+import Menubar from './Menubar';
 
-class Notificationbar extends React.Component{
+class Notifications extends React.Component{
 	constructor(props){
-		super(props)
+		super(props);
 		this.state={
 			notifications:[]
 		}
@@ -45,13 +44,13 @@ class Notificationbar extends React.Component{
 		})
 	}
 	render(){
+		console.log("nightmode: ",this.props.nightmode)
 		return(
-			<StyledNotificationBar>
-				<StyledNotificationBarContainer>
-				{
-					this.state.notifications.length===0 && 
-					<StyledLoader size="mid" src="/loaders/spinner.gif"/>
-				}
+			<StyledPageCanvas>
+				<StyledPageHeading>
+					<h3>Activity</h3>
+				</StyledPageHeading>
+				<Styledbody style={{marginTop: "4rem"}}>
 				{
 					this.state.notifications.map(notification=>{
 						return(
@@ -73,10 +72,18 @@ class Notificationbar extends React.Component{
 						);
 					})
 				}
-				</StyledNotificationBarContainer>
-			</StyledNotificationBar>
+				</Styledbody>
+				<Menubar/>
+			</StyledPageCanvas>
 		);
 	}
 }
 
-export default Notificationbar;
+const mapStateToProps=(state)=>{
+	return {
+		token: state.authenticationReducer.access_token,
+		nightmode: state.settingsReducer.nightmode
+	}
+}
+
+export default connect(mapStateToProps)(Notifications);
