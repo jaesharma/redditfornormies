@@ -4,7 +4,6 @@ import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {loggedIn} from '../actions';
 import queryString from 'query-string';
-import runtimeEnv from '@mars/heroku-js-runtime-env';
 import {StyledPageCover, StyledImg} from '../styles/components/notFoundPageStyles';
 
 class FetchToken extends React.Component{
@@ -17,14 +16,13 @@ class FetchToken extends React.Component{
 		this.setAccessToken=this.setAccessToken.bind(this)
 	}	
 	setAccessToken(){
-		const env = runtimeEnv();
 		const params=queryString.parse(this.props.location.search)
 		const code=params.code
 		const clientID=process.env.REACT_APP_CLIENTID
 		const clientSecret=process.env.REACT_APP_CLIENTSECRET
 		const redirectUri='https://www.redditfornormies.herokuapp.com/fetchtoken/'
 		if (!code) return null;
-		const encode = btoa(`${env.REACT_APP_CLIENTID}:${env.REACT_APP_CLIENTSECRET}`);
+		const encode = btoa(`${process.env.REACT_APP_CLIENTID}:${process.env.REACT_APP_CLIENTSECRET}`);
 		const redditTokens=fetch('https://www.reddit.com/api/v1/access_token',{
 			method: 'POST',
 			body: `grant_type=authorization_code&code=${code}&redirect_uri=${redirectUri}`,
