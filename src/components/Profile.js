@@ -95,6 +95,8 @@ class Profile extends React.Component{
 	render(){
 		let {authenticated, user}=this.props.authdata
 		const env = runtimeEnv();
+		console.log("runtime env: ",env)
+		console.log("process env: ",process.env)
 		return(
 			<div>
 				<Header ishome={true}/>
