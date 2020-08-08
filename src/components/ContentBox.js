@@ -1,23 +1,27 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import _ from 'lodash';
 import LoadPost from './LoadPost';
-import {StyledActiveWindow} from '../styles/components/windowStyles.js'
+import {StyledMainWindow, StyledActiveWindow} from '../styles/components/windowStyles.js'
 
 class ContentBox extends React.Component{
 	constructor(props){
 		super(props);
 	}
 	render(){
+		const {activeSub, posts, data}=this.props
+		const ishome=!!!this.props.activeSub
+		if(!ishome){
+			var items=data[activeSub].items
+		}
 		return (
-			<div>
+			<StyledMainWindow>
 			{
-				this.props.ishome ? 
+				ishome ? 
 				<div>
-					{Object.entries(_.shuffle(this.props.posts)).map(([key,value],index)=>{
+					{Object.entries(this.props.posts).map(([key,value],index)=>{
 						return (
 							<div key={value.id}>
-								<LoadPost data={value} username={this.props.auth.user.name} subinfo={this.props.subinfo} ishome={this.props.ishome} auth={this.props.auth}/>
+								<LoadPost data={value} username={this.props.auth.user.name} subinfo={this.props.subinfo} ishome={true} auth={this.props.auth}/>
 							</div>
 						);
 					})}
@@ -26,16 +30,16 @@ class ContentBox extends React.Component{
 				<StyledActiveWindow>
 					{
 						Object.entries(this.props.posts).map(([key,value],index)=>{
-							if(this.props.items.indexOf(key)!==-1){
+							if(items.indexOf(key)!==-1){
 								return (
-										<LoadPost data={value} username={this.props.auth.user.name} subinfo={this.props.subinfo} key={index} ishome={this.props.ishome} auth={this.props.auth}/>
+										<LoadPost data={value} username={this.props.auth.user.name} subinfo={this.props.subinfo} key={index} ishome={false} auth={this.props.auth}/>
 								);
 							}
 						})
 					}
 				</StyledActiveWindow>
 			}
-			</div>
+			</StyledMainWindow>
 		);	
 	}
 }
@@ -45,6 +49,8 @@ const mapStateToProps=(state,props)=>{
 		auth: state.authenticationReducer,
 		subinfo: state.postReducer.data,
 		posts: state.postReducer.posts,
+		activeSub: state.subredditReducer.activeSubreddit,
+		data: state.postReducer.data
 	}
 }
 

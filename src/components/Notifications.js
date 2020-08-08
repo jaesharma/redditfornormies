@@ -50,29 +50,35 @@ class Notifications extends React.Component{
 				<StyledPageHeading>
 					<h3>Activity</h3>
 				</StyledPageHeading>
-				<Styledbody style={{marginTop: "4rem"}}>
 				{
-					this.state.notifications.map(notification=>{
-						return(
-							<StyledNotification key={notification.id}>
-								<p><b>{notification.author}</b>&nbsp;
-								{notification.subreddit && <span>({notification.subreddit})</span>}</p>
-								<StyledNFooter>
-									<p>{notification.subject}</p>
-									{
-										notification.num_comments &&
-										<div>
-											<StyledBtnImg type="comment" src={this.props.nightmode? "/images/comment-light.png": '/images/comment.png'} alt="comments"/>
-											{notification.num_comments}
-										</div>
-									}
-									<p>{moment.unix(notification.created).format("DD/MM HH:mm")}</p>
-								</StyledNFooter>
-							</StyledNotification>
-						);
-					})
+					this.props.authenticated && 
+					<Styledbody style={{marginTop: "4rem",marginBottom: "3rem"}}>
+					{
+						this.state.notifications.map(notification=>{
+							return(
+								<StyledNotification key={notification.id}>
+									<p><b>{notification.author}</b>&nbsp;
+									{notification.subreddit && <span>({notification.subreddit})</span>}</p>
+									<StyledNFooter>
+										<p>{notification.subject}</p>
+										{
+											notification.num_comments &&
+											<div>
+												<StyledBtnImg type="comment" src={this.props.nightmode? "/images/comment-light.png": '/images/comment.png'} alt="comments"/>
+												{notification.num_comments}
+											</div>
+										}
+										<p>{moment.unix(notification.created).format("DD/MM HH:mm")}</p>
+									</StyledNFooter>
+								</StyledNotification>
+							);
+						})
+					}
+					</Styledbody> ||
+					<Styledbody style={{marginTop: "4rem",justifyContent: "center",alignItems: "center"}}>
+						<h3>You are not logged in</h3>
+					</Styledbody>
 				}
-				</Styledbody>
 				<Menubar/>
 			</StyledPageCanvas>
 		);
@@ -81,6 +87,7 @@ class Notifications extends React.Component{
 
 const mapStateToProps=(state)=>{
 	return {
+		authenticated: state.authenticationReducer.authenticated,
 		token: state.authenticationReducer.access_token,
 		nightmode: state.settingsReducer.nightmode
 	}

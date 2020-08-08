@@ -1,4 +1,5 @@
 import {REQUEST_POSTS, RECEIVE_POSTS, ADD_SUBREDDIT, UPVOTE, DOWNVOTE, LOGGED_IN, LOGOUT, REMOVE_SUBREDDIT} from '../actions/action-types';
+import _ from 'lodash';
 
 const initialState={
 	"data":{},
@@ -19,8 +20,11 @@ const postReducer=(state=initialState,action)=>{
 				}
 			}
 		case RECEIVE_POSTS:
-			const {subreddit, items, fetchedPosts, lastUpdated}=action.payload;
-			const {data,posts}=state
+			let {subreddit, items, fetchedPosts, lastUpdated}=action.payload;
+			let {data,posts}=state
+			Object.assign(posts,fetchedPosts)
+			posts=_.shuffle(posts)
+			posts=_.keyBy(posts,'id')
 			return {
 				...state,
 				data:{

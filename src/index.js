@@ -6,12 +6,12 @@ import store from './store';
 import Cookies from 'js-cookie';
 import {select_subreddit, addSubreddit, fetchPosts, deleteSubreddit} from './actions';
 
-const subreddits=[]
+let subreddits=[]
 
 try{
 	subreddits=JSON.parse(Cookies.get('subreddits'))
 }catch(e){
-	//pass
+	subreddits=["dankmemes","news"]
 }
 
 if(subreddits){

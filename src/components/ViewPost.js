@@ -15,6 +15,7 @@ import {StyledViewPostContent,
 		StyledDetailSection,
 		StyledVPTextPost,
 		StyledVPCloseBtn,
+		StyledPostHead,
 		StyledFollowBtn} from '../styles/components/viewPostStyles';
 import {StyledCanvas} from '../styles/components/tabStyles';
 import {StyledCommentBox, StyledCommentInput, StyledPostButton} from '../styles/components/commentStyles';
@@ -159,6 +160,20 @@ class ViewPost extends React.Component{
 					+
 				</StyledVPCloseBtn>
 				<StyledViewPostContent>
+					<StyledPostHead>
+						<StyledDetailSection>
+						{
+							this.props.location.pathname===`/r/${this.props.data.subreddit}` &&
+							<b className="details__username">r/{subreddit}</b>
+							|| <NavLink to={`/r/${subreddit}`} className="details__username"><b >r/{subreddit}</b></NavLink>
+
+						}
+						{this.props.subreddits.includes(subreddit)?
+							 <StyledFollowBtn style={{color: 'gray'}} onClick={()=> this.props.dispatch(removeSubreddit(subreddit))}>unfollow</StyledFollowBtn>:
+							 <StyledFollowBtn onClick={()=> this.props.dispatch(addSubreddit(subreddit))}>Follow</StyledFollowBtn>
+						}
+						</StyledDetailSection>
+					</StyledPostHead>
 					{
 						img &&
 						<img src={url} alt="post"/>

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {popin} from './animations';
+import {popin,pop} from './animations';
 
 export const StyledViewPostContent=styled.div`
 	background: ${({theme})=>theme.bg};
@@ -19,6 +19,9 @@ export const StyledViewPostContent=styled.div`
 		padding: 0;
 		height: 55%;
 		width: 90%;
+		border-radius: .3rem .3rem 0 0;
+		transition: all 1s ease-in-out;
+		animation: ${pop} .3s ease-in-out;
 	}
 `
 
@@ -32,6 +35,22 @@ export const StyledViewPostDetails=styled.div`
 	margin: 2rem 2rem 2rem 0;
 	@media(max-width: ${({theme})=>theme.breakpoint}){
 		display: none;
+	}
+`
+
+export const StyledPostHead=styled.div`
+	display: none;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	background: ${({theme})=> theme.name==="light" && theme.bg || theme.bodybg};
+	color: ${({theme})=> theme.color}
+	width: 100%;
+	height: 3.7rem;
+	border-radius: .3rem .3rem 0 0;
+	border-bottom: 1px solid ${({theme})=> theme.themeborder};
+	@media(max-width: ${({theme})=>theme.breakpoint}){
+		display: flex;
 	}
 `
 

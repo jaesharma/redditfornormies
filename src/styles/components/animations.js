@@ -1,8 +1,14 @@
 import {keyframes} from 'styled-components';
 
+export const pop=keyframes`
+	0% { opacity: 0; -webkit-transform: scale(1); }
+	80% { opacity: 1; -webkit-transform: scale(1.1); }
+	101% { opacity: 1; -webkit-transform: scale(1); }
+`
+
 export const popin = keyframes`
 	0% { opacity: 0; -webkit-transform: scale(0.5); }
-	80% { opacity: 0; -webkit-transform: scale(1.1); }
+	80% { opacity: 0; -webkit-transform: scale(1.2); }
 	100% { opacity: 1; -webkit-transform: scale(1); }
 `
 

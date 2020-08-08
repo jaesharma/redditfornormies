@@ -4,6 +4,7 @@ import {FadeInLeft} from './animations';
 export const StyledPageCanvas=styled.div`
 	display: flex;
 	flex-direction: column;
+	position: fixed;
 	width: 100%;
 	height: 100%;
 	color: ${({theme})=> theme.color}
@@ -32,6 +33,9 @@ export const Styledbody=styled.div`
 	display: flex;
 	flex-direction: column;
 	background: ${({theme})=> theme.bg};
+	color: ${({theme})=> theme.color}
 	width: 100%;
+	height: 100%;
+	overflow-y: scroll;
 	height: 100%;
 `

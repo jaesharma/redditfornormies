@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import Redditor from './Redditor';
-import MainWindow from './MainWindow';
 import Header from './Header';
+import ContentBox from './ContentBox';
 import Menubar from './Menubar';
 import User from './User';
 import {StyledWindowContainer, StyledContentBox, StyledInfoBox} from '../styles/components/windowStyles';
@@ -27,7 +27,7 @@ class Dashboard extends Component{
 				<StyledWindowContainer>
 					<StyledContentBox>
 					  <Redditor focusTextInput={this.focusTextInput}/>
-					  <MainWindow/>
+					  <ContentBox/>
 					</StyledContentBox>
 					<StyledInfoBox>
 						<User/>

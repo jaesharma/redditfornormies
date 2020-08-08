@@ -159,7 +159,7 @@ export const StyledLoader=styled.img`
 					bottom: 0%;
 					right: 48%;
 					@media(max-width: ${props.theme.breakpoint}){
-						right: 28%;
+						right: 44%;
 					}`
 			default:
 				return 'position: default;margin: 1rem;'

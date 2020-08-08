@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledPostContainer=styled.div`
 	display: flex;
 	background: ${({theme})=> theme.bg};
-	border: ${({theme})=>theme.themeborder} 1px solid;
+	border: ${({theme})=>theme.border} 1px solid;
 	border-radius: 3px;
 	height: 100%;
 	flex-direction: column;
