@@ -1,20 +1,20 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
-const GlobalStyles=createGlobalStyle`
+const GlobalStyles = createGlobalStyle`
 	*{
 		box-sizing: border-box;
 	}
 
 	body {
-	  color: ${props=> props.theme.color};
-	  background: ${props=>props.theme.bodybg};
+	  color: ${(props) => props.theme.color};
+	  background: ${(props) => props.theme.bodybg};
 	  margin: 0;
 	  font-family: 'Nunito Sans', sans-serif;
 	  -webkit-font-smoothing: antialiased;
 	  -moz-osx-font-smoothing: grayscale;
 	}
 	a{
-		color: ${({theme})=>theme.colors.gray5};
+		color: ${({ theme }) => theme.colors.gray5};
 		cursor: pointer;
 	}
 	a:visited{
@@ -25,6 +25,6 @@ const GlobalStyles=createGlobalStyle`
 		margin: 0;
 		padding: 0;
 	}
-`
+`;
 
 export default GlobalStyles;

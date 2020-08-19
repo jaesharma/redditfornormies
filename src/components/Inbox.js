@@ -1,72 +1,96 @@
-import React from 'react';
-import Header from './Header';
-import {connect} from 'react-redux';
-import {StyledDM,
-		StyledDMUsers,
-		StyledDMHead,
-		StyledDMUserThread,
-		StyledMessages,
-		StyledChatHome,
-		StyledUser} from '../styles/components/inboxStyles';
-import {StyledBtnImg} from '../styles/components/headerStyles'
+import React from "react";
+import Header from "./Header";
+import { connect } from "react-redux";
+import {
+	StyledDM,
+	StyledDMUsers,
+	StyledDMHead,
+	StyledDMUserThread,
+	StyledMessages,
+	StyledChatHome,
+	StyledUser,
+} from "../styles/components/inboxStyles";
+import { StyledBtnImg } from "../styles/components/headerStyles";
+import { getSubInfo } from "../actions/api-calls";
 
-class Inbox extends React.Component{
-	constructor(props){
-		super(props)
-		this.state={
+class Inbox extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
 			show_chat_for: undefined,
-			obj:{}
-		}
+			obj: {},
+		};
 	}
-	showChatFor=(id)=>{
-		this.setState({show_chat_for: id})
-	}
-	render(){
-		return(
+	showChatFor = (id) => {
+		this.setState({ show_chat_for: id });
+	};
+	playground = async (token) => {
+		let x = undefined;
+		await getSubInfo(token, x);
+	};
+	render() {
+		return (
 			<div>
-				<Header ishome={true}/>
+				<Header ishome={true} />
 				<StyledDM>
 					<StyledDMUsers>
 						<StyledDMHead>
-							<StyledBtnImg 
-								type="arrow" 
-								src={this.props.nightmode? '/images/left-arrow-light.png': '/images/left-arrow.png'} 
+							<StyledBtnImg
+								type="arrow"
+								src={
+									this.props.nightmode
+										? "/images/left-arrow-light.png"
+										: "/images/left-arrow.png"
+								}
 								onClick={this.props.history.goBack}
 								alt="go_back"
 							/>
 							<p>Direct</p>
 						</StyledDMHead>
 						<StyledDMUserThread>
-						<h4>
-							Reddit does not allow this yet,
-							I have plan to implement some type of another chat client here,
-							until then, this place is deserted ;_;
-						</h4>
-						{
-							Object.entries(this.state.obj).map(([key,val],index)=>{
-								return(
-									<StyledUser onClick={()=>this.showChatFor(key)}>
-										<img src={val.profile}/>
-										<p>{val.name}</p>
-									</StyledUser>
-								);
-							})
-						}
+							<h4>
+								Reddit does not allow this yet, I have plan to
+								implement some type of another chat client here,
+								until then, this place is deserted ;_;
+							</h4>
+							{Object.entries(this.state.obj).map(
+								([key, val], index) => {
+									return (
+										<StyledUser
+											onClick={() =>
+												this.showChatFor(key)
+											}
+										>
+											<img
+												src={val.profile}
+												alt="profile"
+											/>
+											<p>{val.name}</p>
+										</StyledUser>
+									);
+								}
+							)}
 						</StyledDMUserThread>
 					</StyledDMUsers>
 					<StyledMessages>
-						{
-							!!!this.state.show_chat_for ?
+						{!!!this.state.show_chat_for ? (
 							<StyledChatHome>
-								<img src='/images/dm.png'/>
+								<img src="/images/dm.png" alt="dm-logo" />
 								<h2>Your Messages</h2>
 								<p>Send private messages to a reddit user</p>
+								<button
+									onClick={() =>
+										this.playground(this.props.access_token)
+									}
+								>
+									playground
+								</button>
 							</StyledChatHome>
-							:
+						) : (
 							<div>
 								showing chat for {this.state.show_chat_for}
 							</div>
-						}
+						)}
 					</StyledMessages>
 				</StyledDM>
 			</div>
@@ -74,11 +98,11 @@ class Inbox extends React.Component{
 	}
 }
 
-const mapStateToProps=(state)=>{
-	return{
+const mapStateToProps = (state) => {
+	return {
 		access_token: state.authenticationReducer.access_token,
-		nightmode: state.settingsReducer.nightmode
-	}
-}
+		nightmode: state.settingsReducer.nightmode,
+	};
+};
 
 export default connect(mapStateToProps)(Inbox);

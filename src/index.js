@@ -1,29 +1,36 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './components/App';
-import {Provider} from 'react-redux';
-import store from './store';
-import Cookies from 'js-cookie';
-import {select_subreddit, addSubreddit, fetchPosts, deleteSubreddit} from './actions';
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./components/App";
+import { Provider } from "react-redux";
+import store from "./store";
+import { loggedIn, nightMode } from "./actions/index";
+import { refreshData } from "./actions/api-calls";
+import { addSubreddit } from "./actions";
 
-let subreddits=[]
+window.localStorage.removeItem("subreddits");
+let {
+	data = "{}",
+	nightMode: nightModeState = false,
+	subreddits = "[]",
+} = window.localStorage;
+data = JSON.parse(data);
 
-try{
-	subreddits=JSON.parse(Cookies.get('subreddits'))
-}catch(e){
-	subreddits=["dankmemes","news"]
-}
+nightModeState = nightModeState === "true";
+store.dispatch(nightMode(nightModeState));
 
-if(subreddits){
-	subreddits.map(sub=>{
-		store.dispatch(addSubreddit(sub))
-	})
+if (data.hasOwnProperty("access_token")) {
+	refreshData(data.access_token, data.refresh_token).then((data) => {
+		store.dispatch(loggedIn(data));
+	});
+} else {
+	JSON.parse(subreddits).map((sub) => {
+		store.dispatch(addSubreddit(sub));
+	});
 }
 
 ReactDOM.render(
 	<Provider store={store}>
-    	<App/>
-    </Provider>
-    ,
-  document.getElementById('root')
+		<App />
+	</Provider>,
+	document.getElementById("root")
 );

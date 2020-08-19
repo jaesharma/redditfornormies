@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
-export const StyledPageCover=styled.div`
+export const StyledPageCover = styled.div`
 	width: 100vw;
 	height: 100vh;
 	display: flex;
@@ -8,15 +8,15 @@ export const StyledPageCover=styled.div`
 	justify-content: center;
 	align-items: center;
 	text-align: center;
-	&>h1{
+	& > h1 {
 		margin: 0;
 	}
-	&>h2{
+	& > h2 {
 		color: gray;
 	}
-`
+`;
 
-export const StyledImg=styled.img`
+export const StyledImg = styled.img`
 	width: 25rem;
 	height: 25rem;
-`
+`;

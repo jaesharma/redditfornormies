@@ -1,105 +1,104 @@
-import styled from 'styled-components';
-import {FadeInRight} from './animations';
+import styled from "styled-components";
+import { FadeInRight } from "./animations";
 
-
-export const StyledProfile=styled.div`
+export const StyledProfile = styled.div`
 	display: flex;
 	flex-direction: column;
 	width: 60%;
 	position: absolute;
 	margin: 0 20%;
-	@media(max-width: ${({theme})=>theme.breakpoint}){
+	@media (max-width: ${({ theme }) => theme.breakpoint}) {
 		margin: 0;
 		width: 100vw;
 		overflow: hidden;
 	}
-	animation: ${FadeInRight} .3s ease;
-`
+	animation: ${FadeInRight} 0.3s ease;
+`;
 
-export const StyledProfileInfo=styled.div`
+export const StyledProfileInfo = styled.div`
 	display: inherit;
 	flex-direction: row;
-	border-bottom: 1px ${({theme})=>theme.colors.gray3} solid;
+	border-bottom: 1px ${({ theme }) => theme.colors.gray3} solid;
 	padding: 6rem 0;
 	float: left;
-	@media(max-width: ${({theme})=>theme.breakpoint}){
+	@media (max-width: ${({ theme }) => theme.breakpoint}) {
 		overflow-wrap: break-word;
 		padding-top: 3rem;
 	}
-`
+`;
 
-export const StyledProfileName=styled.p`
+export const StyledProfileName = styled.p`
 	margin: 0;
 	margin-right: 1rem;
 	font-size: 1.8rem;
 	font-weight: 80;
-`
+`;
 
-export const StyledProfileDetails=styled.div`
+export const StyledProfileDetails = styled.div`
 	display: inherit;
 	flex-direction: column;
 	position: relative;
 	top: 1rem;
-	@media(max-width: ${({theme})=>theme.breakpoint}){
+	@media (max-width: ${({ theme }) => theme.breakpoint}) {
 		left: 1rem;
 		width: 70%;
 	}
-	&>.userdetails{
+	& > .userdetails {
 		display: flex;
 		flex-direction: row;
 		justify-content: flex-start;
 		overflow-wrap: break-word;
-		@media(max-width: ${({theme})=> theme.breakpoint}){
+		@media (max-width: ${({ theme }) => theme.breakpoint}) {
 			flex-direction: column;
 		}
 	}
-	&>.subbtn{
+	& > .subbtn {
 		display: flex;
 		flex-direction: row;
-		@media(max-width: ${({theme})=> theme.breakpoint}){
+		@media (max-width: ${({ theme }) => theme.breakpoint}) {
 			margin: 0;
 			flex-direction: column;
 		}
 	}
-	&>p{
+	& > p {
 		width: 90%;
 		text-align: justify;
 		overflow-wrap: break-word;
 	}
-`
+`;
 
-export const StyledButtonGroup=styled.div`
+export const StyledButtonGroup = styled.div`
 	display: flex;
 	flex-direction: row;
-`
+`;
 
-export const StyledProfilePosts=styled.div`
+export const StyledProfilePosts = styled.div`
 	display: flex;
 	justify-content: center;
 	margin-top: 1rem;
-`
+`;
 
-export const StyledProfileIcon=styled.img`
-		border: none;
-		border-radius: 50%;
-		width: 9rem;
-		height: 9em;
-		padding: 1rem;
-		@media(max-width: ${({theme})=> theme.breakpoint}){
-			padding: 0;
-			width: 5rem;
-			height: 5rem;
-			margin-top: 1.2rem;
+export const StyledProfileIcon = styled.img`
+	border: none;
+	border-radius: 50%;
+	width: 9rem;
+	height: 9em;
+	padding: 1rem;
+	@media (max-width: ${({ theme }) => theme.breakpoint}) {
+		padding: 0;
+		width: 5rem;
+		height: 5rem;
+		margin-top: 1.2rem;
 	}
-`
+`;
 
-export const StyledProfileGallery=styled.div`
+export const StyledProfileGallery = styled.div`
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: flex-start;
-`
+`;
 
-export const StyledButton=styled.div`
+export const StyledButton = styled.div`
 	display: flex;
 	align-self: center;
 	justify-content: center;
@@ -112,89 +111,89 @@ export const StyledButton=styled.div`
 	border-radius: 4px;
 	font-weight: 550;
 	cursor: pointer;
-	${props=>{
-		switch(props.type){
+	${(props) => {
+		switch (props.type) {
 			case "primary":
 				return "background: #0075f6;color: white;";
 			case "secondary":
 				return "background: gray; color: white;";
 		}
 	}}
-	@media(max-width: ${({theme})=> theme.breakpoint}){
+	@media(max-width: ${({ theme }) => theme.breakpoint}){
 		width: 8rem;
 		align-self: flex-start;
 		margin: .2rem 0;
 	}
-`
+`;
 
-export const StyledLoader=styled.img`
+export const StyledLoader = styled.img`
 	position: fixed;
 	width: 3rem;
 	display: flex;
 	align-self: center;
-	${props=>{
-		switch(props.size){
+	${(props) => {
+		switch (props.size) {
 			case "sm":
 				return "width:1rem;height:1rem;";
 			case "mid":
-				return "height: 3rem;margin-bottom: 3rem;"
+				return "height: 3rem;margin-bottom: 3rem;";
 		}
 	}}
-	${props=>{
-		switch(props.type){
+	${(props) => {
+		switch (props.type) {
 			case "input":
 				return `
 					top: 1.1rem;
 					height: 1rem;
-					right: 44%;
+					right: 44.5%;
 					position: absolute;
 					width: 1rem;
 					z-index: 6;
 					@media(max-width: ${props.theme.breakpoint}){
 						top: 1%;
 						right: 2%;
-					}`
+					}`;
 			case "pageload":
 				return `
 					bottom: 0%;
 					right: 48%;
 					@media(max-width: ${props.theme.breakpoint}){
 						right: 44%;
-					}`
+					}`;
 			default:
-				return 'position: default;margin: 1rem;'
+				return "position: default;margin: 1rem;";
 		}
 	}}
-`
+`;
 
-export const StyledLoginBoard=styled.div`
+export const StyledLoginBoard = styled.div`
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	align-self: center;
 	padding-top: 4rem;
-	&>span{
+	& > span {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;
 		align-items: center;
 		align-self: center;
-		transition: all .1s ease;
+		transition: all 0.1s ease;
 	}
-	transition: all .1s ease;
-`
+	transition: all 0.1s ease;
+`;
 
-export const StyledInfoBlock=styled.div`
+export const StyledInfoBlock = styled.div`
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-`
+`;
 
-export const StyledInlineDiv=styled.div`
+export const StyledInlineDiv = styled.div`
 	display: flex;
 	align-items: center;
-	&>span{
+	& > span {
 		font-weight: bold;
 		margin-right: 2rem;
 	}
-`
+`;
